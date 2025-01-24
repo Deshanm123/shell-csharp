@@ -1,5 +1,7 @@
 while (true)
 {
+    //shell built-in arr
+    string[] shellKeyWordsArr = ["echo", "type", "exit"];
     // Uncomment this line to pass the first stage
     Console.Write("$ ");
 
@@ -16,7 +18,20 @@ while (true)
     }
     else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
+        //printing as output
         Console.WriteLine(command.Replace("echo ", ""));
+    }
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
+    {
+        //indentifying reserved shell keyword by Type
+        string strKeyword = command.Split(" ")[1].Trim();
+        //#Array.Exists(shellKeyWordsArr, keyword => keyword == strKeyword);
+        bool isaShellKeyword = Array.Exists(shellKeyWordsArr, keyword => keyword == strKeyword);
+        if (isaShellKeyword)
+            Console.WriteLine($"{strKeyword} is a shell builtin");
+        else
+            Console.WriteLine($"{command}: command not found");
+
     }
     else
     {
