@@ -6,5 +6,9 @@ while (true)
     // Wait for user input
     var command = Console.ReadLine();
     Console.WriteLine($"{command}: command not found");
+
+    if (command == "exit 0")
+        break;
+
 }
 
