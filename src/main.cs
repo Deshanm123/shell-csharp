@@ -14,6 +14,10 @@ while (true)
         //Console.WriteLine("0");
         //break;
     }
+    else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
+    {
+        Console.WriteLine(command.Replace("echo", ""));
+    }
     else
     {
         Console.WriteLine($"{command}: command not found");
