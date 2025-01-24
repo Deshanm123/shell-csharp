@@ -16,7 +16,7 @@ while (true)
     }
     else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
-        Console.WriteLine(command.Replace("echo", ""));
+        Console.WriteLine(command.Replace("echo ", ""));
     }
     else
     {
