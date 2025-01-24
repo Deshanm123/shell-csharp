@@ -30,7 +30,7 @@ while (true)
         if (isaShellKeyword)
             Console.WriteLine($"{strKeyword} is a shell builtin");
         else
-            Console.WriteLine($"{command}: not found");
+            Console.WriteLine($"{strKeyword}: not found");
 
     }
     else
