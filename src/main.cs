@@ -9,7 +9,7 @@ while (true)
     //exit command implementation
     if (command == "exit")
     {
-        Console.WriteLine($"{command} 0");
+        Console.WriteLine($"$ {command} 0");
         break;
     }
     Console.WriteLine($"{command}: command not found");
