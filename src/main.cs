@@ -5,10 +5,13 @@ while (true)
 
     // Wait for user input
     var command = Console.ReadLine();
-    Console.WriteLine($"{command}: command not found");
 
-    if (command == "exit 0")
+    //exit command implementation
+    if (command == "exit")
+    {
+        Console.WriteLine($"{command} 0");
         break;
-
+    }
+    Console.WriteLine($"{command}: command not found");
 }
 
