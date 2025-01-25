@@ -1,8 +1,4 @@
- List<string> FindthePath(string pathStr){
-    
-    List<string> pathsList = new List<string>();
-    return pathsList;
- }
+
 
 while (true)
 {
@@ -17,9 +13,7 @@ while (true)
     //exit command implementation
     if (command == "exit 0")
     {
-        //Console.Write(0);
         Environment.Exit(0);
-        //Console.WriteLine("0");
         //break;
     }
     else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
@@ -36,9 +30,20 @@ while (true)
             Console.WriteLine($"{strKeyword} is a shell builtin");
         else
         {
-            var result = FindthePath(strKeyword);
-            if (string.IsNullOrEmpty(result))
-                Console.WriteLine("path exists");
+            // Retrieve the PATH environment variable, or use an empty string if null.
+            string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
+
+            // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
+            string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+            var fullPath ="";
+            foreach (var path in pathDirs){
+                fullPath = Path.Combine(path+Path.PathSeparator, strKeyword);
+                if (Path.Exists(fullPath))
+                    break;
+            }
+            if (!string.IsNullOrEmpty(fullPath))
+                Console.WriteLine($"{strKeyword} is {fullPath}");
             else
                 Console.WriteLine($"{strKeyword}: not found");
         }
