@@ -1,3 +1,9 @@
+ List<string> FindthePath(string pathStr){
+    
+    List<string> pathsList = new List<string>();
+    return pathsList;
+ }
+
 while (true)
 {
     //shell built-in arr
@@ -24,14 +30,18 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
         //indentifying reserved shell keyword by Type
-        string strKeyword = command.Split(" ")[1].Trim();
-        //#Array.Exists(shellKeyWordsArr, keyword => keyword == strKeyword);
+        string strKeyword = command.Substring(5).Trim();
         bool isaShellKeyword = Array.Exists(shellKeyWordsArr, keyword => keyword == strKeyword);
         if (isaShellKeyword)
             Console.WriteLine($"{strKeyword} is a shell builtin");
         else
-            Console.WriteLine($"{strKeyword}: not found");
-
+        {
+            var result = FindthePath(strKeyword);
+            if (string.IsNullOrEmpty(result))
+                Console.WriteLine("path exists");
+            else
+                Console.WriteLine($"{strKeyword}: not found");
+        }
     }
     else
     {
