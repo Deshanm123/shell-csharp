@@ -36,11 +36,13 @@ while (true)
             // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
             string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
 
-            var fullPath ="";
+            var fullPath="";
             foreach (var path in pathDirs){
                 fullPath = Path.Combine(path, strKeyword);
                 if (Path.Exists(fullPath))
                     break;
+                else
+                    fullPath = "";
             }
             if (!string.IsNullOrEmpty(fullPath))
                 Console.WriteLine($"{strKeyword} is {fullPath}");
