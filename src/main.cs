@@ -38,7 +38,7 @@ while (true)
 
             var fullPath ="";
             foreach (var path in pathDirs){
-                fullPath = Path.Combine(path+Path.PathSeparator, strKeyword);
+                fullPath = Path.Combine(path, strKeyword);
                 if (Path.Exists(fullPath))
                     break;
             }
