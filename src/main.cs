@@ -62,7 +62,7 @@ while (true)
             
             foreach (var path in pathDirs)
             {
-                var progPath = Path.Combine(path, programName);
+                var progPath = Path.Combine(path, command);
                 if (Path.Exists(progPath))
                 {
                     Console.Write(Path.GetFullPath(progPath));
