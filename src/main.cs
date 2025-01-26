@@ -58,11 +58,11 @@ while (true)
         {
             string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
             string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
-          //  string programName = command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0];
+            string programName = command.Split(" ", StringSplitOptions.RemoveEmptyEntries)[0];
             
             foreach (var path in pathDirs)
             {
-                var fullPath = Path.Combine(path, command);
+                var fullPath = Path.Combine(path, programName);
                 if (Path.Exists(fullPath))
                     break;
 
