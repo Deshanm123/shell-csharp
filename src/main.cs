@@ -64,7 +64,11 @@ while (true)
             {
                 var fullPath = Path.Combine(path, programName);
                 if (Path.Exists(fullPath))
+                {
+                    Console.Write(fullPath);
                     break;
+
+                }
 
             }
         }
