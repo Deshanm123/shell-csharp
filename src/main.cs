@@ -52,6 +52,20 @@ while (true)
     }
     else
     {
+        if (!String.IsNullOrEmpty(command))
+        {
+            string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
+            string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+            var fullPath = "";
+            foreach (var path in pathDirs)
+            {
+                fullPath = Path.Combine(path, command);
+                if (Path.Exists(fullPath))
+                    break;
+
+            }
+        }
         Console.WriteLine($"{command}: command not found");
     }
 }
