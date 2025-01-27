@@ -20,6 +20,22 @@ bool isShellKeyword(string commandkeyword)
     return Array.Exists(shellKeyWordsArr, keyword => keyword == commandkeyword);
 }
 
+
+string GetExecutableByName(string progName)
+{
+    string filepath = "";
+    foreach (var path in GetPathDirectives())
+    {
+        var tempPath = Path.Combine(path, progName);
+        if (File.Exists(tempPath))
+        {
+           filepath = Path.GetFullPath(tempPath);
+           break;
+        }
+    }
+    return filepath;
+}
+
 while (true)
 {
     Console.Write("$ ");
@@ -68,32 +84,11 @@ while (true)
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
 
+            //Executing the executable
             using var process = new Process();
-            process.StartInfo.FileName = progName;
+            process.StartInfo.FileName = GetExecutableByName(progName);
             process.StartInfo.Arguments = progArgs;
             process.Start();
-
-            //var progPath = "";
-
-            //foreach (var path in GetPathDirectives())
-            //{
-            //    var tempPath = Path.Combine(path, command);
-            //    if (File.Exists(tempPath))
-            //    {
-            //        Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
-            //        //Get Executable file
-            //       // progPath = Path.GetFullPath(tempPath);
-            //       // Console.WriteLine($"Debug: Variable value is {progPath}"); ;
-            //        //Executing the executable
-            //        using var process = new Process();
-            //        process.StartInfo.FileName = tempPath;
-            //        process.StartInfo.Arguments = progArgs;
-            //        process.Start();
-
-            //        //stop the loop
-            //        break;
-            //    }
-            //}
 
         }
         else
