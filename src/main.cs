@@ -81,20 +81,10 @@ while (true)
     else if (command == "cd")
     {
         var location = command.Substring(1).Trim();
-
-        var fullPath = "";
-        foreach (var path in GetPathDirectives())
-        {
-            fullPath = Path.Combine(path, location);
-            if (Path.Exists(fullPath))
-                break;
-            else
-                fullPath = "";
-        }
         // var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
-        if (Path.Exists(fullPath))
+        if (!String.IsNullOrEmpty(location) && Path.Exists(location))
         {
-            Environment.CurrentDirectory = fullPath;
+            Directory.SetCurrentDirectory(location);
         }
         else
         {
