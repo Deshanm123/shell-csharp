@@ -1,5 +1,6 @@
 
 
+using System.Diagnostics;
 using System.Globalization;
 
 while (true)
@@ -57,12 +58,16 @@ while (true)
         if (!String.IsNullOrEmpty(command))
         {
             string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
-            string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
-            string programName = command.Split(' ')[0].Trim();
+            string[] pathDirsArr = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+            string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+            string progName = commandContentArr[0].Trim();
+            string P
             
-            foreach (var path in pathDirs)
+            var progPath = "";
+           
+            foreach (var path in pathDirsArr)
             {
-                var progPath = Path.Combine(path, command);
+                progPath = Path.Combine(path, command);
                 if (Path.Exists(progPath))
                 {
                     Console.Write(Path.GetFullPath(progPath));
@@ -71,6 +76,15 @@ while (true)
                 }
 
             }
+            //Get Executable file
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = progPath;
+                process.StartInfo.Arguments =  
+            }
+
+
+
         }
         else
         {
