@@ -72,7 +72,7 @@ while (true)
                 {
                     //Get Executable file
                     progPath = Path.GetFullPath(tempPath);
-
+                    Console.WriteLine("path"+ progPath);
                     //Executing the executable
                     using var process = new Process();
                     process.StartInfo.FileName = progPath;
