@@ -26,13 +26,9 @@ string GetExecutableByName(string progName)
     string filepath = "";
     foreach (var path in GetPathDirectives())
     {
-        var tempPath = Path.Combine(path, progName);
-        if (File.Exists(tempPath))
-        {
-           //filepath = Path.GetFullPath(tempPath);
-           filepath = tempPath;
+        filepath = Path.Combine(path, progName);
+        if (File.Exists(filepath))
            break;
-        }
     }
     return filepath;
 }
@@ -84,18 +80,24 @@ while (true)
             string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
-
-            //Executing the executable
-            using var process = new Process();
-            process.StartInfo.FileName = progName;//GetExecutableByName(progName);
-            process.StartInfo.Arguments = progArgs;
-            process.Start();
-
+            if (String.IsNullOrEmpty(GetExecutableByName(progName)))
+            {
+                //Executing the executable
+                using var process = new Process();
+                process.StartInfo.FileName = progName;//GetExecutableByName(progName);
+                process.StartInfo.Arguments = progArgs;
+                process.Start();
+            }
+            else
+            {
+                Console.WriteLine($"{command}: command not found");
+            }
         }
         else
         {
             Console.WriteLine($"{command}: command not found");
         }
+        
     }
 }
 
