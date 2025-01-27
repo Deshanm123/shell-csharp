@@ -70,9 +70,10 @@ while (true)
                 var tempPath = Path.Combine(path, command);
                 if (Path.Exists(tempPath))
                 {
+                    Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
                     //Get Executable file
                     progPath = Path.GetFullPath(tempPath);
-                    Console.WriteLine("path"+ progPath);
+                    Console.WriteLine($"Debug: Variable value is {progPath}"); ;
                     //Executing the executable
                     using var process = new Process();
                     process.StartInfo.FileName = progPath;
