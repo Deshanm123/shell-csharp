@@ -72,11 +72,11 @@ while (true)
                 {
                     Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
                     //Get Executable file
-                    progPath = Path.GetFullPath(tempPath);
-                    Console.WriteLine($"Debug: Variable value is {progPath}"); ;
+                   // progPath = Path.GetFullPath(tempPath);
+                   // Console.WriteLine($"Debug: Variable value is {progPath}"); ;
                     //Executing the executable
                     using var process = new Process();
-                    process.StartInfo.FileName = progPath;
+                    process.StartInfo.FileName = tempPath;
                     process.StartInfo.Arguments = progArgs;
                     process.Start();
                     
