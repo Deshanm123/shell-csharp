@@ -1,11 +1,12 @@
 
-
+using System.ComponentModel.Design;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Globalization;
 
 
 //shell built-in arr
-string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd"];
+string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd"];
 string[] GetPathDirectives()
 {
     // Retrieve the PATH environment variable, or use an empty string if null.
@@ -45,7 +46,7 @@ while (true)
         //exit command implementation
         Environment.Exit(0);
     }
-    else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         //printing as output
         Console.WriteLine(command.Substring(5));
@@ -73,17 +74,32 @@ while (true)
                 Console.WriteLine($"{strKeyword}: not found");
         }
     }
-    else if(command == "pwd")
+    else if (command == "pwd")
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
-    }   
+    }
+    else if (command == "cd")
+    {
+        var location = command.Substring(2).Trim();
+        var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
+        if (Path.Exists(newLocation))
+        {
+            Environment.CurrentDirectory = newLocation;
+        }
+        else
+        {
+            Console.WriteLine($"cd: {location}: No such file or directory");
+        }
+    }
+
+
     else
     {
         if (!String.IsNullOrEmpty(command))
         {
-            string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+            string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
-            string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
+            string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
             if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
             {
                 //Executing the executable
@@ -108,7 +124,7 @@ while (true)
         {
             Console.WriteLine($"{command}: command not found");
         }
-        
+
     }
 }
 
