@@ -63,12 +63,12 @@ while (true)
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
             
-            var progPath = "";
+            //var progPath = "";
            
             foreach (var path in pathDirsArr)
             {
                 var tempPath = Path.Combine(path, command);
-                if (Path.Exists(tempPath))
+                if (File.Exists(tempPath))
                 {
                     Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
                     //Get Executable file
