@@ -70,18 +70,19 @@ while (true)
                 var tempPath = Path.Combine(path, command);
                 if (Path.Exists(tempPath))
                 {
-                    progPath = Path.GetFullPath(progPath);
+                    //Get Executable file
+                    progPath = Path.GetFullPath(tempPath);
+
+                    //Executing the executable
+                    using var process = new Process();
+                    process.StartInfo.FileName = progPath;
+                    process.StartInfo.Arguments = progArgs;
+                    process.Start();
+                    
                     break;
                 }
             }
-            //Get Executable file
-            using (var process = new Process())
-            {
-                process.StartInfo.FileName = progPath;
-                process.StartInfo.Arguments = progArgs;
-
-                process.Start();
-            }
+            
 
         }
         else
