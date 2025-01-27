@@ -80,7 +80,7 @@ while (true)
     }
     else if (command == "cd")
     {
-        var location = command.Substring(2).Trim();
+        var location = command.Substring(1).Trim();
        // var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
         if (Path.Exists(location))
         {
