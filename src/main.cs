@@ -5,7 +5,7 @@ using System.Globalization;
 
 
 //shell built-in arr
-string[] shellKeyWordsArr = ["echo", "type", "exit"];
+string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd"];
 string[] GetPathDirectives()
 {
     // Retrieve the PATH environment variable, or use an empty string if null.
@@ -76,7 +76,7 @@ while (true)
     else if(command == "pwd")
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
-    }
+    }   
     else
     {
         if (!String.IsNullOrEmpty(command))
