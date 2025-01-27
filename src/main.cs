@@ -29,7 +29,7 @@ string GetExecutableByName(string progName)
         var tempPath = Path.Combine(path, progName);
         if (File.Exists(tempPath))
         {
-           filepath = Path.GetFullPath(tempPath);
+           //filepath = Path.GetFullPath(tempPath);
            break;
         }
     }
