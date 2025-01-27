@@ -61,29 +61,27 @@ while (true)
             string[] pathDirsArr = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
             string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
-            string P
+            string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
             
             var progPath = "";
            
             foreach (var path in pathDirsArr)
             {
-                progPath = Path.Combine(path, command);
-                if (Path.Exists(progPath))
+                var tempPath = Path.Combine(path, command);
+                if (Path.Exists(tempPath))
                 {
-                    Console.Write(Path.GetFullPath(progPath));
+                    progPath = Path.GetFullPath(progPath);
                     break;
-
                 }
-
             }
             //Get Executable file
             using (var process = new Process())
             {
                 process.StartInfo.FileName = progPath;
-                process.StartInfo.Arguments =  
+                process.StartInfo.Arguments = progArgs;
+
+                process.Start();
             }
-
-
 
         }
         else
