@@ -3,44 +3,51 @@
 using System.Diagnostics;
 using System.Globalization;
 
+
+//shell built-in arr
+string[] shellKeyWordsArr = ["echo", "type", "exit"];
+string[] GetPathDirectives()
+{
+    // Retrieve the PATH environment variable, or use an empty string if null.
+    string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
+    // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
+    string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+    return pathDirs;
+} 
+
+bool isShellKeyword(string commandkeyword)
+{
+    return Array.Exists(shellKeyWordsArr, keyword => keyword == commandkeyword);
+}
+
 while (true)
 {
-    //shell built-in arr
-    string[] shellKeyWordsArr = ["echo", "type", "exit"];
-    // Uncomment this line to pass the first stage
     Console.Write("$ ");
 
     // Wait for user input
     var command = Console.ReadLine();
 
-    //exit command implementation
     if (command == "exit 0")
     {
+        //exit command implementation
         Environment.Exit(0);
-        //break;
     }
     else if(!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         //printing as output
-        Console.WriteLine(command.Replace("echo ", ""));
+        Console.WriteLine(command.Substring(5));
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
         //indentifying reserved shell keyword by Type
         string strKeyword = command.Substring(5).Trim();
-        bool isaShellKeyword = Array.Exists(shellKeyWordsArr, keyword => keyword == strKeyword);
-        if (isaShellKeyword)
+        if (isShellKeyword(strKeyword))
             Console.WriteLine($"{strKeyword} is a shell builtin");
         else
         {
-            // Retrieve the PATH environment variable, or use an empty string if null.
-            string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
-
-            // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
-            string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
-
             var fullPath = "";
-            foreach (var path in pathDirs){
+            foreach (var path in GetPathDirectives())
+            {
                 fullPath = Path.Combine(path, strKeyword);
                 if (Path.Exists(fullPath))
                     break;
@@ -57,15 +64,13 @@ while (true)
     {
         if (!String.IsNullOrEmpty(command))
         {
-            string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
-            string[] pathDirsArr = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
             string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
             
             //var progPath = "";
            
-            foreach (var path in pathDirsArr)
+            foreach (var path in GetPathDirectives())
             {
                 var tempPath = Path.Combine(path, command);
                 if (File.Exists(tempPath))
@@ -80,10 +85,10 @@ while (true)
                     process.StartInfo.Arguments = progArgs;
                     process.Start();
                     
+                    //stop the loop
                     break;
                 }
             }
-            
 
         }
         else
