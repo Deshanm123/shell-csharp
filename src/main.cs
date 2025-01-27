@@ -80,7 +80,7 @@ while (true)
             string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
-            if (String.IsNullOrEmpty(GetExecutableByName(progName)))
+            if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
             {
                 //Executing the executable
                 using var process = new Process();
