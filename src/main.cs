@@ -83,10 +83,17 @@ while (true)
             if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
             {
                 //Executing the executable
-                using var process = new Process();
-                process.StartInfo.FileName = progName;//GetExecutableByName(progName);
-                process.StartInfo.Arguments = progArgs;
-                process.Start();
+                try
+                {
+                    using var process = new Process();
+                    process.StartInfo.FileName = progName;//GetExecutableByName(progName);
+                    process.StartInfo.Arguments = progArgs;
+                    process.Start();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{command}: command not found");
+                }
             }
             else
             {
