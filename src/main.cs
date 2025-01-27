@@ -73,6 +73,10 @@ while (true)
                 Console.WriteLine($"{strKeyword}: not found");
         }
     }
+    else if(command == "pwd")
+    {
+        Console.WriteLine(Directory.GetCurrentDirectory());
+    }
     else
     {
         if (!String.IsNullOrEmpty(command))
