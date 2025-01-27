@@ -67,28 +67,33 @@ while (true)
             string[] commandContentArr = command.Split(' ',StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
             string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0 ));
-            
+
+            using var process = new Process();
+            process.StartInfo.FileName = progName;
+            process.StartInfo.Arguments = progArgs;
+            process.Start();
+
             //var progPath = "";
-           
-            foreach (var path in GetPathDirectives())
-            {
-                var tempPath = Path.Combine(path, command);
-                if (File.Exists(tempPath))
-                {
-                    Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
-                    //Get Executable file
-                   // progPath = Path.GetFullPath(tempPath);
-                   // Console.WriteLine($"Debug: Variable value is {progPath}"); ;
-                    //Executing the executable
-                    using var process = new Process();
-                    process.StartInfo.FileName = tempPath;
-                    process.StartInfo.Arguments = progArgs;
-                    process.Start();
-                    
-                    //stop the loop
-                    break;
-                }
-            }
+
+            //foreach (var path in GetPathDirectives())
+            //{
+            //    var tempPath = Path.Combine(path, command);
+            //    if (File.Exists(tempPath))
+            //    {
+            //        Console.WriteLine($"Debug: tempPath Variable value is {tempPath}"); ;
+            //        //Get Executable file
+            //       // progPath = Path.GetFullPath(tempPath);
+            //       // Console.WriteLine($"Debug: Variable value is {progPath}"); ;
+            //        //Executing the executable
+            //        using var process = new Process();
+            //        process.StartInfo.FileName = tempPath;
+            //        process.StartInfo.Arguments = progArgs;
+            //        process.Start();
+
+            //        //stop the loop
+            //        break;
+            //    }
+            //}
 
         }
         else
