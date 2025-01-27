@@ -87,7 +87,7 @@ while (true)
 
             //Executing the executable
             using var process = new Process();
-            process.StartInfo.FileName = GetExecutableByName(progName);
+            process.StartInfo.FileName = progName;//GetExecutableByName(progName);
             process.StartInfo.Arguments = progArgs;
             process.Start();
 
