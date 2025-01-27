@@ -78,13 +78,21 @@ while (true)
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
     }
-    else if (command == "cd")
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
-        var location = command.Substring(1).Trim();
+        var location = command.Substring(2).Trim();
         // var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
         if (!String.IsNullOrEmpty(location) && Path.Exists(location))
         {
-            Directory.SetCurrentDirectory(location);
+            try
+            {
+                Directory.SetCurrentDirectory(location);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"cd: {location}: No such file or directory");
+            }
         }
         else
         {
