@@ -82,6 +82,14 @@ while (true)
     {
         var location = command.Substring(2).Trim();
         // var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
+
+        if (location.Contains('~'))
+        {
+            string homeEnvVariable = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            location = location.Replace("~", homeEnvVariable);
+        }
+
+        //absolute path handling
         if (!String.IsNullOrEmpty(location) && Path.Exists(location))
         {
             try
