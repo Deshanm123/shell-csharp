@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 
@@ -51,21 +52,32 @@ while (true)
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
-        //printing as output
         string strKeyword = command.Substring(4).Trim();
-        char[] charArr = strKeyword.ToCharArray();
+        string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+        string keywordsWithoutLongSpaces = string.Join(" ",keywordsArr);
+        foreach (var word in keywordsArr)
+            Console.WriteLine(word);
 
-        if(strKeyword.StartsWith('\"') && strKeyword.EndsWith('\"') || strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
-        {
-            char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
-                                  .ToArray();
+        Console.WriteLine(keywordsWithoutLongSpaces);
 
-            Console.WriteLine(string.Join("", nwArr));
-        }
-        else
-        {
-            Console.WriteLine(strKeyword);
-        }
+
+
+
+
+        //printing as output
+        //string strKeyword = command.Substring(4).Trim();
+        //char[] charArr = strKeyword.ToCharArray();
+        //if(strKeyword.StartsWith('\"') && strKeyword.EndsWith('\"') || strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
+        //{
+        //    char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
+        //                          .ToArray();
+
+        //    Console.WriteLine(string.Join("", nwArr));
+        //}
+        //else
+        //{
+        //    Console.WriteLine(strKeyword);
+        //}
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
