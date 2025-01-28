@@ -54,11 +54,17 @@ while (true)
     {
         string strKeyword = command.Substring(4).Trim();
         string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        string keywordsWithoutLongSpaces = string.Join(" ",keywordsArr);
+        string correctSpacedWords = string.Join(" ",keywordsArr);
         
-        Console.WriteLine(keywordsWithoutLongSpaces);
 
+        char[] charArr = correctSpacedWords.ToCharArray();
+        if(correctSpacedWords.StartsWith('\"') && correctSpacedWords.EndsWith('\"') || correctSpacedWords.StartsWith("\'") && correctSpacedWords.EndsWith("\'"))
+        {
+            char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
+                                  .ToArray();
 
+            Console.WriteLine(string.Join("", nwArr));
+        }
 
 
 
