@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 
 string leftSingleQuotationUnicode = "U+2018";
@@ -53,13 +54,12 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
-        string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        string correctSpacedWords = string.Join(" ",keywordsArr);
+       
         
-
-        char[] charArr = correctSpacedWords.ToCharArray();
-        if(correctSpacedWords.StartsWith('\"') && correctSpacedWords.EndsWith('\"') || correctSpacedWords.StartsWith("\'") && correctSpacedWords.EndsWith("\'"))
+        //sinn
+        if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
+            char[] charArr = strKeyword.ToCharArray();
             char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
                                   .ToArray();
 
@@ -67,6 +67,9 @@ while (true)
         }
         else
         {
+            //$ echo test     shell =>  test shell
+            string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            string correctSpacedWords = string.Join(" ", keywordsArr);
             Console.WriteLine(correctSpacedWords);
         }
 
@@ -82,10 +85,7 @@ while (true)
 
         //    Console.WriteLine(string.Join("", nwArr));
         //}
-        //else
-        //{
-        //    Console.WriteLine(strKeyword);
-        //}
+        
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
