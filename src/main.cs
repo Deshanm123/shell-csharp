@@ -54,15 +54,14 @@ while (true)
         //printing as output
         string strKeyword = command.Substring(4).Trim();
         char[] charArr = strKeyword.ToCharArray();
-        //char[] nwArr = charArr.Where((character, index) => {
-                               //         if (index != 0) return false;
-                               //         else if (index != charArr.Length - 1) return false;
-                               //         else return true; })
-                               //.ToArray(); 
-        char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
-                              .ToArray();
-        Console.WriteLine(string.Join("", nwArr));
-        //Console.WriteLine(command.Substring(5));
+        if (command.StartsWith("'") && command.EndsWith("'"))
+        {
+            char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
+                                  .ToArray();
+
+            Console.WriteLine(string.Join("", nwArr));
+        }
+        Console.WriteLine(command.Substring(5));
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
