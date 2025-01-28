@@ -135,10 +135,10 @@ while (true)
         {
             char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
             string noSpacePath = string.Join("",noSpacePathArr);
-            string fullPath = GetExecutableByName(filePath);
-            if (Path.Exists(fullPath))
+          //  string fullPath = GetExecutableByName(noSpacePath);
+            if (Path.Exists(noSpacePath))
               
-                fileContent = fileContent+File.ReadAllText(fullPath);
+                fileContent = fileContent+File.ReadAllText(noSpacePath);
 
         }
         Console.WriteLine(fileContent);
