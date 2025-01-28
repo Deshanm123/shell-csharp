@@ -133,7 +133,10 @@ while (true)
         string fileContent = "";
         foreach (string filePath in filePaths)
         {
+            char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+            string noSpacePath = string.Join("",noSpacePathArr);
             if (Path.Exists(filePath))
+              
                 fileContent = fileContent+File.ReadAllText(filePath);
 
         }
