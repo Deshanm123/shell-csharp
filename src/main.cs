@@ -65,6 +65,10 @@ while (true)
 
             Console.WriteLine(string.Join("", nwArr));
         }
+        else
+        {
+            Console.WriteLine(correctSpacedWords);
+        }
 
 
 
