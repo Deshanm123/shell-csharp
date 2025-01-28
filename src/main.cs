@@ -3,8 +3,11 @@ using System.ComponentModel.Design;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 
+string leftSingleQuotationUnicode = "U+2018";
+string righttSingleQuotationUnicode = "U+2019";
 //shell built-in arr
 string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd"];
 string[] GetPathDirectives()
@@ -49,7 +52,17 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         //printing as output
-        Console.WriteLine(command.Substring(5));
+        string strKeyword = command.Substring(4).Trim();
+        char[] charArr = strKeyword.ToCharArray();
+        //char[] nwArr = charArr.Where((character, index) => {
+                               //         if (index != 0) return false;
+                               //         else if (index != charArr.Length - 1) return false;
+                               //         else return true; })
+                               //.ToArray(); 
+        char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
+                              .ToArray();
+        Console.WriteLine(string.Join("", nwArr));
+        //Console.WriteLine(command.Substring(5));
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
@@ -81,7 +94,6 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
-        // var newLocation = Path.Combine(Directory.GetCurrentDirectory(), location);
 
         if (location.Contains('~'))
         {
