@@ -8,10 +8,9 @@ using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 
 
-string leftSingleQuotationUnicode = "U+2018";
-string righttSingleQuotationUnicode = "U+2019";
+
 //shell built-in arr
-string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd"];
+string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd","cat"];
 string[] GetPathDirectives()
 {
     // Retrieve the PATH environment variable, or use an empty string if null.
@@ -54,15 +53,13 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
-       
-        
-        //sinn
         if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
+           // echo 'test shell'=> test shell
+
             char[] charArr = strKeyword.ToCharArray();
             char[] nwArr = charArr.Where(character => character != '\'')
                                   .ToArray();
-
             Console.WriteLine(string.Join("", nwArr));
         }
         else
@@ -72,19 +69,6 @@ while (true)
             string correctSpacedWords = string.Join(" ", keywordsArr);
             Console.WriteLine(correctSpacedWords);
         }
-
-
-
-        //printing as output
-        //string strKeyword = command.Substring(4).Trim();
-        //char[] charArr = strKeyword.ToCharArray();
-        //if(strKeyword.StartsWith('\"') && strKeyword.EndsWith('\"') || strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
-        //{
-        //    char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
-        //                          .ToArray();
-
-        //    Console.WriteLine(string.Join("", nwArr));
-        //}
         
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
@@ -142,8 +126,19 @@ while (true)
             Console.WriteLine($"cd: {location}: No such file or directory");
         }
     }
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
+    {
+        string filPathstr = command.Substring(4).Trim();
+        string[] filePaths = filPathstr.Split("");
+        string fileContent = "";
+        foreach (string filePath in filePaths)
+        {
+            if (Path.Exists(filePath))
+                fileContent = fileContent+File.ReadAllText(filePath);
 
-
+        }
+        Console.WriteLine(fileContent);
+    }
     else
     {
         if (!String.IsNullOrEmpty(command))
