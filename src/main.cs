@@ -55,12 +55,7 @@ while (true)
         string strKeyword = command.Substring(4).Trim();
         char[] charArr = strKeyword.ToCharArray();
 
-
-        Console.WriteLine(command.Substring(5));
-
-
-
-        if(command.StartsWith('"') && command.EndsWith('"') || command.StartsWith("'") && command.EndsWith("'"))
+        if(strKeyword.StartsWith('\"') && strKeyword.EndsWith('\"') || strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
             char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
                                   .ToArray();
@@ -69,7 +64,7 @@ while (true)
         }
         else
         {
-            Console.WriteLine(command.Substring(5));
+            Console.WriteLine(strKeyword);
         }
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
