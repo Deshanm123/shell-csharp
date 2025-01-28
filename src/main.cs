@@ -55,9 +55,7 @@ while (true)
         string strKeyword = command.Substring(4).Trim();
         string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
         string keywordsWithoutLongSpaces = string.Join(" ",keywordsArr);
-        foreach (var word in keywordsArr)
-            Console.WriteLine(word);
-
+        
         Console.WriteLine(keywordsWithoutLongSpaces);
 
 
