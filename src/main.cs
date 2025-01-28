@@ -60,7 +60,7 @@ while (true)
         if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
             char[] charArr = strKeyword.ToCharArray();
-            char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
+            char[] nwArr = charArr.Where(character => character != '\'')
                                   .ToArray();
 
             Console.WriteLine(string.Join("", nwArr));
