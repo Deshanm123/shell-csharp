@@ -60,7 +60,7 @@ while (true)
 
 
 
-        if((command.StartsWith('"') && command.EndsWith('"') || (command.StartsWith("'") && command.EndsWith("'"))
+        if(command.StartsWith('"') && command.EndsWith('"') || command.StartsWith("'") && command.EndsWith("'"))
         {
             char[] nwArr = charArr.Where((character, index) => index != 0 && index != charArr.Length - 1)
                                   .ToArray();
