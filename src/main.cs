@@ -50,12 +50,14 @@ string GetExecutableByName(string progName)
 string getJointPathsWithPathDirectives(string path)
 {
    string filePath = "";
-   //char[] pathArr = path.ToCharArray()
-   //                        .Where((chr,ind) =>   ind != 0 && chr != '/' ).ToArray();
-   //string validPath = string.Join("", pathArr);
+   char[] pathArr = path.ToCharArray()
+                          .Where((chr,ind) =>   ind != 0 && chr != '/' )
+                          .Where((chr, ind) => ind != path.Length-1 && chr != '\'')
+                          .ToArray();
+   string validPath = string.Join("", pathArr);
    foreach (var dirPath in GetPathDirectives())
     {
-        var tempPath = Path.Join(dirPath, path);
+        var tempPath = Path.Join(dirPath, validPath);
         Console.WriteLine(tempPath);    
         if (Directory.Exists(tempPath))
         {
