@@ -48,7 +48,7 @@ bool RunTheExecutable(string progName, string progArgs)
         process.StartInfo.FileName = progName;//GetExecutableByName(progName);
         process.StartInfo.Arguments = progArgs;
         process.Start();
-        isProcessWorking = false;
+        isProcessWorking = true;
     }
     catch (Exception ex)
     {
@@ -166,7 +166,7 @@ while (true)
            if(filePath != " ")
                 fileContent  += ReadTheFileContent(filePath);
         }
-        Console.WriteLine(fileContent);
+        Console.WriteLine("content x"+fileContent);
     }
     else
     {
@@ -174,21 +174,12 @@ while (true)
         {
             string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
-            string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
             if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
             {
+                string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
                 //Executing the executable
-                try
-                {
-                    using var process = new Process();
-                    process.StartInfo.FileName = progName;//GetExecutableByName(progName);
-                    process.StartInfo.Arguments = progArgs;
-                    process.Start();
-                }
-                catch (Exception ex)
-                {
+                if(!RunTheExecutable(progName,progArgs))
                     Console.WriteLine($"{command}: command not found");
-                }
             }
             else
             {
