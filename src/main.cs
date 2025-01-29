@@ -138,7 +138,15 @@ while (true)
            //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
            if(filePath != " ")
            {
-               fileContent = fileContent + File.ReadAllText(filePath);
+                try
+                {
+                    Console.WriteLine(File.ReadAllText(filePath));
+                    fileContent = fileContent + File.ReadAllText(filePath);
+                }
+                catch (Exception ex) 
+                { 
+                    Console.WriteLine(ex.Message);
+                }
 
            }
 
