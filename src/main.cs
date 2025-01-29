@@ -47,22 +47,23 @@ string GetExecutableByName(string progName)
 }
 
 
-//string getJointPathsWithPathDirectives(string path)
-//{
-//   string filepath = "";
-//    char[] pathArr = path.ToCharArray()
-//                          .Where((chr, ind) => { ind == 0 && chr != '/' });
-
-                                  
-//   foreach (var path in GetPathDirectives())
-//    {
-       
-//        filepath = Path.Join(path, progName);
-//        if (File.Exists(filepath))
-//            break;
-//    }
-//    return filepath;
-//}
+string getJointPathsWithPathDirectives(string path)
+{
+   string filePath = "";
+   //char[] pathArr = path.ToCharArray()
+   //                        .Where((chr,ind) =>   ind != 0 && chr != '/' ).ToArray();
+   //string validPath = string.Join("", pathArr);
+   foreach (var dirPath in GetPathDirectives())
+    {
+        var tempPath = Path.Join(dirPath, path);
+        if (File.Exists(filePath))
+        {
+            filePath = tempPath;
+            return filePath;
+        }
+    }
+    return filePath;
+}
 
 
 
@@ -88,6 +89,7 @@ bool RunTheExecutable(string progName, string progArgs)
 
 string ReadTheFileContent(string filePath)
 {
+    Console.WriteLine("****" + filePath);
     string fileContent = "";
     try
     {
@@ -209,15 +211,16 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePath = filePathRegex.Value;
+                string filePathx = filePathRegex.Value;
                 //char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 //string noSpacePath = string.Join("",noSpace-PathArr);
                 //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+                string filePath = getJointPathsWithPathDirectives(filePathx);
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
                     //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent("/tmp/quz/f14");
+                    fileContent  = fileContent + ReadTheFileContent(filePath);
                 }
 
             }
