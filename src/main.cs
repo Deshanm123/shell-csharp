@@ -81,8 +81,8 @@ string ReadTheFileContent(string filePath)
     string fileContent = "";
     try
     {
-        // if (File.Exists(filePath))
-        //{
+        //if (File.Exists(filePath))
+        ///{
         fileContent = File.ReadAllText(filePath);
         return fileContent;
         // Console.WriteLine("fileContent " + fileContent);
@@ -205,7 +205,7 @@ while (true)
                 {
                     //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent(filePath);
+                    fileContent  = fileContent + ReadTheFileContent("/tmp/quz/f   14");
                 }
 
             }
