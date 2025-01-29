@@ -61,10 +61,12 @@ string ReadTheFileContent(string filePath)
 {
     Console.WriteLine("File Path recieved to ReadTheFile" +filePath);
     string fileContent = "";
-    try { fileContent = File.ReadAllText(filePath);
+    try {
+
+        fileContent = File.ReadAllText(filePath);
         Console.WriteLine("fileContent " + fileContent);
     }
-    catch (Exception ex) { }// Console.WriteLine(ex.Message); }
+    catch (Exception ex) {  Console.WriteLine(ex.Message); }
     return fileContent;
 }
 
