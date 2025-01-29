@@ -158,17 +158,18 @@ while (true)
         string filPathstr = command.Substring(4);
 
         var pattern = "'([^']+)'";
-        var validPaths = Regex.Matches(filPathstr, pattern);
+        var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
 
         //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
         //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
         //string[] filePathsReg = Regex.Split(filPathstr, pattern);
-        if (validPaths.Count > 0)
+        if (validPaths.Length > 0)
         {
             string fileContent = "";
-            foreach (string filePath in validPaths)
+            foreach (var filePathRegex in validPaths)
             {
+                string filePath = filePathRegex.ToString();
                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                //string noSpacePath = string.Join("",noSpace-PathArr);
                //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
