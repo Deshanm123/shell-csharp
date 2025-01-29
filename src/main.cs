@@ -172,6 +172,8 @@ while (true)
             foreach (var filePathRegex in validPaths)
             {
                 string filePath = filePathRegex.ToString();
+                Console.WriteLine("file Path " + filePath);
+
                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                //string noSpacePath = string.Join("",noSpace-PathArr);
                //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
