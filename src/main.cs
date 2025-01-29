@@ -156,11 +156,14 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string filPathstr = command.Substring(4);
-        string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
-        if (filePaths.Length > 0)
+        //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
+        var pattern = "'([^']+)'";
+        //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+        string[] filePathsReg = Regex.Split(filPathstr, pattern);
+        if (filePathsReg.Length > 0)
         {
             string fileContent = "";
-            foreach (string filePath in filePaths)
+            foreach (string filePath in filePathsReg)
             {
                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                //string noSpacePath = string.Join("",noSpace-PathArr);
