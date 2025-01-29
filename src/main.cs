@@ -75,7 +75,7 @@ bool RunTheExecutable(string progName, string progArgs)
 
 string ReadTheFileContent(string filePath)
 {
-    Console.WriteLine("File Path recieved to ReadTheFile" +filePath);
+    Console.WriteLine("File Path recieved to ReadTheFile \n" + filePath);
     string fileContent = "";
     try {
 
