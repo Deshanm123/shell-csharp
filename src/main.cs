@@ -157,16 +157,23 @@ while (true)
     {
         string filPathstr = command.Substring(4);
         string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
-        string fileContent = "";
-        foreach (string filePath in filePaths)
+        if (filePaths.Length > 0)
         {
-           // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-           //string noSpacePath = string.Join("",noSpace-PathArr);
-           //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
-           if(filePath != " ")
-                fileContent  += ReadTheFileContent(filePath);
+            string fileContent = "";
+            foreach (string filePath in filePaths)
+            {
+               // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+               //string noSpacePath = string.Join("",noSpace-PathArr);
+               //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
+               if(filePath != " ")
+                    fileContent  += ReadTheFileContent(filePath);
+            }
+            Console.WriteLine(fileContent);
         }
-        Console.WriteLine(fileContent);
+        else
+        {
+            Console.WriteLine(filPathstr);
+        }
     }
     else
     {
