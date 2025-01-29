@@ -174,12 +174,12 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePath = filePathRegex.ToString();
+                string filePathx = filePathRegex.ToString();
                 //Console.WriteLine("file Path " + filePath); //this works
 
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 //string noSpacePath = string.Join("",noSpace-PathArr);
-                //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
+                string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
                     var result = ReadTheFileContent(filePath);
