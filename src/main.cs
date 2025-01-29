@@ -31,8 +31,7 @@ string GetExecutableByName(string progName)
     string filepath = "";
     foreach (var path in GetPathDirectives())
     {
-        var tempfilepath = Path.Combine(path, progName);
-        Console.WriteLine("temp path "+tempfilepath);
+        var tempfilepath = Path.Join(path, progName);
         if (File.Exists(filepath))
         {
            filepath = tempfilepath;
@@ -43,17 +42,17 @@ string GetExecutableByName(string progName)
 }
 
 
-string GetExecutableByNameJOIN(string progName)
-{
-    string filepath = "";
-    foreach (var path in GetPathDirectives())
-    {
-        filepath = Path.Join(path, progName);
-        if (File.Exists(filepath))
-            break;
-    }
-    return filepath;
-}
+//string GetExecutableByNameJOIN(string progName)
+//{
+//    string filepath = "";
+//    foreach (var path in GetPathDirectives())
+//    {
+//        filepath = Path.Join(path, progName);
+//        if (File.Exists(filepath))
+//            break;
+//    }
+//    return filepath;
+//}
 
 
 
@@ -84,7 +83,8 @@ string ReadTheFileContent(string filePath)
         if (File.Exists(filePath))
         {
             fileContent = File.ReadAllText(filePath);
-            Console.WriteLine("fileContent " + fileContent);
+            return fileContent;
+            // Console.WriteLine("fileContent " + fileContent);
         }
         else
         {
@@ -197,15 +197,15 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePathx = filePathRegex.Value;
+                string filePath = filePathRegex.Value;
 
                 //char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 //string noSpacePath = string.Join("",noSpace-PathArr);
-                string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+              //  string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
                     var result = ReadTheFileContent(filePath);
-                    Console.WriteLine("***" + result + "xxxxxx");
+                   // Console.WriteLine("***" + result + "xxxxxx");
                     fileContent  = fileContent + ReadTheFileContent(filePath);
                 }
 
