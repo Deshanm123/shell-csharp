@@ -156,7 +156,7 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string filPathstr = command.Substring(4);
-        string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
+        string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
         if (filePaths.Length > 0)
         {
             string fileContent = "";
