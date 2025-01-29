@@ -91,7 +91,7 @@ string ReadTheFileContent(string filePath)
           //  Console.WriteLine("File doesn't exsist in the path \n" + filePath);
         //}
     }
-    catch (Exception ex) {  Console.WriteLine(ex.Message); }
+    catch (Exception ex) { // Console.WriteLine(ex.Message); }
     return fileContent;
 }
 
@@ -158,7 +158,6 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
-
         if (location.Contains('~'))
         {
             string homeEnvVariable = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -198,13 +197,12 @@ while (true)
             foreach (var filePathRegex in validPaths)
             {
                 string filePath = filePathRegex.Value;
-
                 //char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 //string noSpacePath = string.Join("",noSpace-PathArr);
-              //  string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+                //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
-                    var result = ReadTheFileContent(filePath);
+                    //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
                     fileContent  = fileContent + ReadTheFileContent(filePath);
                 }
