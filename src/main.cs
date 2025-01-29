@@ -84,8 +84,8 @@ string ReadTheFileContent(string filePath)
         //if (File.Exists(filePath))
         ///{
         fileContent = File.ReadAllText(filePath);
+        Console.WriteLine("fileContent " + fileContent);
         return fileContent;
-        // Console.WriteLine("fileContent " + fileContent);
         //}
         //else
         //{
