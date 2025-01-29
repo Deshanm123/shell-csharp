@@ -59,7 +59,7 @@ string getJointPathsWithPathDirectives(string path)
     {
         var tempPath = Path.Join(dirPath, validPath);
         Console.WriteLine(tempPath);    
-        if (File.Exists(tempPath))
+        if (Path.Exists(tempPath))
         {
             filePath = tempPath;
             return filePath;
