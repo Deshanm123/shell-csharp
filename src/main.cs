@@ -61,7 +61,7 @@ string ReadTheFileContent(string filePath)
 {
     string fileContent = "";
     try { fileContent = File.ReadAllText(filePath); }
-    catch (Exception ex) { Console.WriteLine(ex.Message); }
+    catch (Exception ex) { }// Console.WriteLine(ex.Message); }
     return fileContent;
 }
 
