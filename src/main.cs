@@ -59,6 +59,7 @@ bool RunTheExecutable(string progName, string progArgs)
 
 string ReadTheFileContent(string filePath)
 {
+    Console.WriteLine("File Path recieved to ReadTheFile" +filePath);
     string fileContent = "";
     try { fileContent = File.ReadAllText(filePath);
         Console.WriteLine("fileContent " + fileContent);
@@ -172,13 +173,18 @@ while (true)
             foreach (var filePathRegex in validPaths)
             {
                 string filePath = filePathRegex.ToString();
-                Console.WriteLine("file Path " + filePath);
+                //Console.WriteLine("file Path " + filePath); //this works
 
-               // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-               //string noSpacePath = string.Join("",noSpace-PathArr);
-               //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
-               if(!string.IsNullOrWhiteSpace(filePath))
-                    fileContent  += ReadTheFileContent(filePath);
+                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+                //string noSpacePath = string.Join("",noSpace-PathArr);
+                //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
+                if (!string.IsNullOrWhiteSpace(filePath))
+                {
+                    var result = ReadTheFileContent(filePath);
+                    Console.WriteLine("***" + result + "xxxxxx");
+                    fileContent  = fileContent + ReadTheFileContent(filePath);
+                }
+
             }
             Console.WriteLine(fileContent);
         }
