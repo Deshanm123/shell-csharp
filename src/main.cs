@@ -155,9 +155,9 @@ while (true)
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
-        string filPathstr = command.Substring(4).Trim();
+        string filPathstr = command.Substring(4);
         string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
-        string fileContent = " ";
+        string fileContent = "";
         foreach (string filePath in filePaths)
         {
            // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
