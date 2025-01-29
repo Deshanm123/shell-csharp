@@ -38,6 +38,22 @@ string GetExecutableByName(string progName)
     return filepath;
 }
 
+
+string GetExecutableByNameJOIN(string progName)
+{
+    string filepath = "";
+    foreach (var path in GetPathDirectives())
+    {
+        filepath = Path.Join(path, progName);
+        if (File.Exists(filepath))
+            break;
+    }
+    return filepath;
+}
+
+
+
+
 bool RunTheExecutable(string progName, string progArgs)
 {
     bool isProcessWorking;
@@ -161,10 +177,8 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string filPathstr = command.Substring(4);
-
         var pattern = "'([^']+)'";
         var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
-
 
         //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
         //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
@@ -174,7 +188,7 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePathx = filePathRegex.ToString();
+                string filePathx = filePathRegex.Value;
 
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 //string noSpacePath = string.Join("",noSpace-PathArr);
