@@ -38,6 +38,33 @@ string GetExecutableByName(string progName)
     return filepath;
 }
 
+bool RunTheExecutable(string progName, string progArgs)
+{
+    bool isProcessWorking;
+    //Executing the executable
+    try
+    {
+        using var process = new Process();
+        process.StartInfo.FileName = progName;//GetExecutableByName(progName);
+        process.StartInfo.Arguments = progArgs;
+        process.Start();
+        isProcessWorking = false;
+    }
+    catch (Exception ex)
+    {
+        isProcessWorking = false;
+    }
+    return isProcessWorking;
+}
+
+string ReadTheFileContent(string filePath)
+{
+    string fileContent = "";
+    try { fileContent = File.ReadAllText(filePath); }
+    catch (Exception ex) { Console.WriteLine(ex.Message); }
+    return fileContent;
+}
+
 while (true)
 {
     Console.Write("$ ");
@@ -134,22 +161,10 @@ while (true)
         foreach (string filePath in filePaths)
         {
            // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-            //string noSpacePath = string.Join("",noSpacePathArr);
+           //string noSpacePath = string.Join("",noSpace-PathArr);
            //string fullPath = Path.GetFullPath(GetExecutableByName(noSpacePath));
            if(filePath != " ")
-           {
-                try
-                {
-                    Console.WriteLine(File.ReadAllText(filePath));
-                    fileContent = fileContent + File.ReadAllText(filePath);
-                }
-                catch (Exception ex) 
-                { 
-                    Console.WriteLine(ex.Message);
-                }
-
-           }
-
+                fileContent  += ReadTheFileContent(filePath);
         }
         Console.WriteLine(fileContent);
     }
