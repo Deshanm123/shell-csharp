@@ -79,19 +79,20 @@ bool RunTheExecutable(string progName, string progArgs)
 string ReadTheFileContent(string filePath)
 {
     string fileContent = "";
-    try {
-       // if (File.Exists(filePath))
+    try
+    {
+        // if (File.Exists(filePath))
         //{
-            fileContent = File.ReadAllText(filePath);
-            return fileContent;
-            // Console.WriteLine("fileContent " + fileContent);
+        fileContent = File.ReadAllText(filePath);
+        return fileContent;
+        // Console.WriteLine("fileContent " + fileContent);
         //}
         //else
         //{
-          //  Console.WriteLine("File doesn't exsist in the path \n" + filePath);
+        //  Console.WriteLine("File doesn't exsist in the path \n" + filePath);
         //}
     }
-    catch (Exception ex) { // Console.WriteLine(ex.Message); }
+    catch (Exception ex) { } // Console.WriteLine(ex.Message); }
     return fileContent;
 }
 
