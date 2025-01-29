@@ -193,10 +193,10 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePath = filePathRegex.Value;
+                string filePathx = filePathRegex.Value;
 
-                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-                //string noSpacePath = string.Join("",noSpace-PathArr);
+                char[] noSpacePathArr = filePathx.ToCharArray().Where(character => character != ' ').ToArray();
+                string filePath = string.Join("",noSpacePathArr);
                 //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
