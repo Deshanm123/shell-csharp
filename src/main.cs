@@ -217,7 +217,7 @@ while (true)
                 {
                     //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent("/tmp/quz/f   14");
+                    fileContent  = fileContent + ReadTheFileContent("/tmp/quz/f14");
                 }
 
             }
