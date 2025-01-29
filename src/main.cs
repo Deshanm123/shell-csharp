@@ -11,6 +11,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 //shell built-in arr
 string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd","cat"];
+
+//Get user path environments according to OS
 string[] GetPathDirectives()
 {
     // Retrieve the PATH environment variable, or use an empty string if null.
@@ -20,12 +22,15 @@ string[] GetPathDirectives()
     return pathDirs;
 } 
 
+//shell reserved words check 
 bool isShellKeyword(string commandkeyword)
 {
     return Array.Exists(shellKeyWordsArr, keyword => keyword == commandkeyword);
 }
 
 
+//Program can be found some where in directives.
+//Therefore program name is passed to get the file location
 string GetExecutableByName(string progName)
 {
     string filepath = "";
@@ -42,11 +47,16 @@ string GetExecutableByName(string progName)
 }
 
 
-//string GetExecutableByNameJOIN(string progName)
+//string getJointPathsWithPathDirectives(string path)
 //{
-//    string filepath = "";
-//    foreach (var path in GetPathDirectives())
+//   string filepath = "";
+//    char[] pathArr = path.ToCharArray()
+//                          .Where((chr, ind) => { ind == 0 && chr != '/' });
+
+                                  
+//   foreach (var path in GetPathDirectives())
 //    {
+       
 //        filepath = Path.Join(path, progName);
 //        if (File.Exists(filepath))
 //            break;
@@ -81,18 +91,20 @@ string ReadTheFileContent(string filePath)
     string fileContent = "";
     try
     {
-        //if (File.Exists(filePath))
-        ///{
-        fileContent = File.ReadAllText(filePath);
-        Console.WriteLine("fileContent " + fileContent);
-        return fileContent;
-        //}
-        //else
-        //{
-        //  Console.WriteLine("File doesn't exsist in the path \n" + filePath);
-        //}
+        if (File.Exists(filePath))
+        {
+            fileContent = File.ReadAllText(filePath);
+            return fileContent;
+        }
+        else
+        {
+            Console.WriteLine("File doesn't exsist in the path \n" + filePath);
+        }
     }
-    catch (Exception ex) { } // Console.WriteLine(ex.Message); }
+    catch (Exception ex) 
+    { 
+        // Console.WriteLine(ex.Message); }
+    } 
     return fileContent;
 }
 
