@@ -56,7 +56,7 @@ string getJointPathsWithPathDirectives(string path)
    foreach (var dirPath in GetPathDirectives())
     {
         var tempPath = Path.Join(dirPath, path);
-        if (Path.Exists(filePath))
+        if (File.Exists(filePath))
         {
             filePath = tempPath;
             return filePath;
@@ -221,7 +221,7 @@ while (true)
                // {
                     //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent(filePathx);
+                    fileContent  = fileContent + ReadTheFileContent(filePath);
                // }
 
             }
