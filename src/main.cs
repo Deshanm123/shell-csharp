@@ -166,7 +166,7 @@ while (true)
            if(filePath != " ")
                 fileContent  += ReadTheFileContent(filePath);
         }
-        Console.WriteLine("content x"+fileContent);
+        Console.WriteLine(fileContent);
     }
     else
     {
