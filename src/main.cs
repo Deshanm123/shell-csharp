@@ -60,7 +60,9 @@ bool RunTheExecutable(string progName, string progArgs)
 string ReadTheFileContent(string filePath)
 {
     string fileContent = "";
-    try { fileContent = File.ReadAllText(filePath); }
+    try { fileContent = File.ReadAllText(filePath);
+        Console.WriteLine("fileContent " + fileContent);
+    }
     catch (Exception ex) { }// Console.WriteLine(ex.Message); }
     return fileContent;
 }
