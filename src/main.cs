@@ -56,7 +56,7 @@ string getJointPathsWithPathDirectives(string path)
    foreach (var dirPath in GetPathDirectives())
     {
         var tempPath = Path.Join(dirPath, path);
-        if (Directory.Exists(filePath))
+        if (Directory.Exists(tempPath))
         {
             filePath = tempPath;
             return filePath;
