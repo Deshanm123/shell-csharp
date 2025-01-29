@@ -31,9 +31,12 @@ string GetExecutableByName(string progName)
     string filepath = "";
     foreach (var path in GetPathDirectives())
     {
-        filepath = Path.Combine(path, progName);
+        var tempfilepath = Path.Combine(path, progName);
         if (File.Exists(filepath))
+        {
+           filepath = tempfilepath;
            break;
+        }
     }
     return filepath;
 }
@@ -195,9 +198,9 @@ while (true)
             {
                 string filePathx = filePathRegex.Value;
 
-                char[] noSpacePathArr = filePathx.ToCharArray().Where(character => character != ' ').ToArray();
-                string filePath = string.Join("",noSpacePathArr);
-                //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+                //char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+                //string noSpacePath = string.Join("",noSpace-PathArr);
+                string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 if (!string.IsNullOrWhiteSpace(filePath))
                 {
                     var result = ReadTheFileContent(filePath);
