@@ -71,7 +71,10 @@ string GetExecutableByName(string progName)
 
 
 
-
+Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
+{
+    return Regex.Matches(strPhrase, regPattern).ToArray();
+}
 bool RunTheExecutable(string progName, string progArgs)
 {
     bool isProcessWorking;
@@ -114,6 +117,7 @@ string ReadTheFileContent(string filePath)
     return fileContent;
 }
 
+
 while (true)
 {
     Console.Write("$ ");
@@ -129,23 +133,29 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
-        //if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
-        //{
-           // echo 'test shell'=> test shell
+        if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
+        {
+            var output = "";
+            Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+            foreach(Match kw  in keywords)
+            {
+                var _out= string.Join("",strKeyword.ToCharArray().Where(chr => chr != '\''));
+                output+= _out;
+            }
+            Console.WriteLine(output);
+        }
+        else
+        {
+           // $ echo test     shell => test shell
+            string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            string correctSpacedWords = string.Join(" ", keywordsArr);
+            Console.WriteLine(correctSpacedWords);
+        }
+        //    char[] output = strKeyword.ToCharArray();
+        //                               //.Where(character => character != '\'')
+        //                               //.ToArray();
 
-            char[] charArr = strKeyword.ToCharArray();
-            char[] nwArr = charArr.Where(character => character != '\'')
-                                  .ToArray();
-            Console.WriteLine(string.Join("", nwArr));
-        //}
-        //else
-        //{
-        //    //$ echo test     shell =>  test shell
-        //    string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        //    string correctSpacedWords = string.Join(" ", keywordsArr);
-        //    Console.WriteLine(correctSpacedWords);
-        //}
-        
+
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
