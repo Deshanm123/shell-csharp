@@ -219,7 +219,7 @@ while (true)
                 string noSpacePath = string.Join("", noSpacePathArr);
                 //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
                 string filePathX = getJointPathsWithPathDirectives(noSpacePath);
-                Console.WriteLine("llast pathj "+ filePath);
+                Console.WriteLine("llast pathj "+ filePathX);
                // if (!string.IsNullOrWhiteSpace(filePath))
                // {
                     //var result = ReadTheFileContent(filePath);
