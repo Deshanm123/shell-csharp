@@ -139,8 +139,8 @@ while (true)
             Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
             foreach(Match kw  in keywords)
             {
-                var _out= string.Join("",strKeyword.ToCharArray().Where(chr => chr != '\''));
-                output+= _out;
+          //      var _out= string.Join("",strKeyword.ToCharArray().Where(chr => chr != '\''));
+                output+= kw.Value;
             }
             Console.WriteLine(output);
         }
