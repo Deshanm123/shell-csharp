@@ -222,7 +222,7 @@ while (true)
                           .ToArray();
                 string filePath = string.Join("", pathArr);
                 Console.WriteLine($"{filePath}");
-                //var _fileContent = File.ReadAllText(filePath);
+                var _fileContent = File.ReadAllText(filePath);
                 //fileContent += _fileContent;
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 // string noSpacePath = string.Join("", noSpacePathArr);
