@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
@@ -214,7 +215,12 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePath = filePathRegex.Value;
+                string _filePath = filePathRegex.Value;
+                char[] pathArr = _filePath.ToCharArray()
+                          .Where((chr, ind) => ind != 0 && chr != '/') //  remove / if present  in path as first element cuz dirPath has / at end  
+                          .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
+                          .ToArray();
+                string filePath = string.Join("", pathArr);
                 Console.WriteLine($"{filePath}");
                 //var _fileContent = File.ReadAllText(filePath);
                 //fileContent += _fileContent;
