@@ -215,6 +215,7 @@ while (true)
             foreach (var filePathRegex in validPaths)
             {
                 string filePath = filePathRegex.Value;
+                Console.WriteLine($"{filePath}");
                 var _fileContent = File.ReadAllText(filePath);
                 fileContent += _fileContent;
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
