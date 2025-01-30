@@ -47,26 +47,26 @@ string GetExecutableByName(string progName)
 }
 
 
-string getJointPathsWithPathDirectives(string path)
-{
-   string filePath = "";
-   char[] pathArr = path.ToCharArray() 
-                          .Where((chr,ind) =>   ind != 0 && chr != '/') //  remove / if present  in path as first element cuz dirPath has / at end  
-                          .Where((chr, ind) => ind != path.Length-1 && chr != '\'')  //   remove single quote at the end of the path
-                          .ToArray();
-   string validPath = string.Join("", pathArr);
-   foreach (var dirPath in GetPathDirectives())
-    {
-        var tempPath = Path.Join(dirPath, validPath);
-        Console.WriteLine(tempPath);    
-        if (Path.Exists(tempPath))
-        {
-            filePath = tempPath;
-            return filePath;
-        }
-    }
-    return filePath;
-}
+//string getJointPathsWithPathDirectives(string path)
+//{
+//   string filePath = "";
+//   char[] pathArr = path.ToCharArray() 
+//                          .Where((chr,ind) =>   ind != 0 && chr != '/') //  remove / if present  in path as first element cuz dirPath has / at end  
+//                          .Where((chr, ind) => ind != path.Length-1 && chr != '\'')  //   remove single quote at the end of the path
+//                          .ToArray();
+//   string validPath = string.Join("", pathArr);
+//   foreach (var dirPath in GetPathDirectives())
+//    {
+//        var tempPath = Path.Join(dirPath, validPath);
+//        Console.WriteLine(tempPath);    
+//        if (Path.Exists(tempPath))
+//        {
+//            filePath = tempPath;
+//            return filePath;
+//        }
+//    }
+//    return filePath;
+//}
 
 
 
@@ -92,7 +92,7 @@ bool RunTheExecutable(string progName, string progArgs)
 
 string ReadTheFileContent(string filePath)
 {
-    Console.WriteLine("****" + filePath);
+   // Console.WriteLine("****" + filePath);
     string fileContent = "";
     try
     {
@@ -203,7 +203,7 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string filPathstr = command.Substring(4);
-        var pattern = "'([^']+)'";
+        string pattern = "'([^']+)'";
         var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
         //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
@@ -215,17 +215,19 @@ while (true)
             foreach (var filePathRegex in validPaths)
             {
                 string filePath = filePathRegex.Value;
-                char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-                string noSpacePath = string.Join("", noSpacePathArr);
-                //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
-                string filePathX = getJointPathsWithPathDirectives(noSpacePath);
-                Console.WriteLine("llast pathj "+ filePathX);
-               // if (!string.IsNullOrWhiteSpace(filePath))
-               // {
-                    //var result = ReadTheFileContent(filePath);
-                   // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent(filePathX);
-               // }
+                var _fileContent = File.ReadAllText(filePath);
+                fileContent += _fileContent;
+                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+                // string noSpacePath = string.Join("", noSpacePathArr);
+                // //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+                // string filePathX = getJointPathsWithPathDirectives(noSpacePath);
+                // Console.WriteLine("llast pathj "+ filePathX);
+                //// if (!string.IsNullOrWhiteSpace(filePath))
+                //// {
+                //     //var result = ReadTheFileContent(filePath);
+                //    // Console.WriteLine("***" + result + "xxxxxx");
+                //     fileContent  = fileContent + ReadTheFileContent(filePathX);
+                //// }
 
             }
             Console.WriteLine(fileContent);
