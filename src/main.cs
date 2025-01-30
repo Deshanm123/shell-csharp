@@ -217,12 +217,12 @@ while (true)
             {
                 string _filePath = filePathRegex.Value;
                 char[] pathArr = _filePath.ToCharArray()
-                          .Where((chr, ind) => ind != 0 && chr != '/') //  remove / if present  in path as first element cuz dirPath has / at end  
+                          .Where((chr, ind) => ind != 0 ) //  remove / if present  in path as first element cuz dirPath has / at end  
                           .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
                           .ToArray();
                 string filePath = string.Join("", pathArr);
                 Console.WriteLine($"{filePath}");
-                var _fileContent = File.ReadAllText(filePath);
+                    var _fileContent = File.ReadAllText(filePath);
                 //fileContent += _fileContent;
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 // string noSpacePath = string.Join("", noSpacePathArr);
