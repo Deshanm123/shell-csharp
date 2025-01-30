@@ -205,7 +205,7 @@ while (true)
         string strKeyword = command.Substring(4);
         Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
 
-        if(keywords != null && keywords.Count() < 0)
+        if(keywords != null && keywords.Count() > 0)
         {
            var output = "";
             foreach (Match match in keywords)
