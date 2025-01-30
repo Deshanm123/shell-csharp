@@ -217,8 +217,8 @@ while (true)
             {
                 string _filePath = filePathRegex.Value;
                 char[] pathArr = _filePath.ToCharArray()
-                          .Where((chr, ind) => ind != 0 ) //  remove / if present  in path as first element cuz dirPath has / at end  
-                          .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
+                          .Where((chr, ind) => ind != 0  && ind != _filePath.Length - 1) //  remove / if present  in path as first element cuz dirPath has / at end  
+                         // .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
                           .ToArray();
                 string filePath = string.Join("", pathArr);
                 Console.WriteLine($"{filePath}");
