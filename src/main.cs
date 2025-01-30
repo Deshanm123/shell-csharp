@@ -216,8 +216,8 @@ while (true)
             {
                 string filePath = filePathRegex.Value;
                 Console.WriteLine($"{filePath}");
-                var _fileContent = File.ReadAllText(filePath);
-                fileContent += _fileContent;
+                //var _fileContent = File.ReadAllText(filePath);
+                //fileContent += _fileContent;
                 // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
                 // string noSpacePath = string.Join("", noSpacePathArr);
                 // //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
