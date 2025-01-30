@@ -96,15 +96,15 @@ string ReadTheFileContent(string filePath)
     string fileContent = "";
     try
     {
-        if (File.Exists(filePath))
-        {
+        //if (File.Exists(filePath))
+        //{
             fileContent = File.ReadAllText(filePath);
             return fileContent;
-        }
-        else
-        {
+        //}
+        //else
+        //{
             Console.WriteLine("File doesn't exsist in the path \n" + filePath);
-        }
+        //}
     }
     catch (Exception ex) 
     { 
