@@ -202,7 +202,7 @@ while (true)
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
-        string strKeyword = command.Substring(4);
+        string strKeyword = command.Substring(3);
         Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
 
         if(keywords != null && keywords.Count() > 0)
@@ -215,7 +215,7 @@ while (true)
                                                .ToArray();
                 string _path = string.Join("", _output);
                 var path = ReadTheFileContent(_path);
-                output+= path;
+                output+= path; 
             }
             Console.WriteLine(output);
         }
