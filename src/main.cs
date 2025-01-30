@@ -204,17 +204,22 @@ while (true)
     {
         string strKeyword = command.Substring(4);
         Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
-        var output = "";
-        foreach (Match match in keywords)
+
+        if(keywords != null && keywords.Count() < 0)
         {
-            char[] _output  = match.Value.ToCharArray()
-                                           .Where(character => character != '\'')
-                                           .ToArray();
-            string _path = string.Join("", _output);
-            var path = ReadTheFileContent(_path);
-            output+= path;
+           var output = "";
+            foreach (Match match in keywords)
+            {
+                char[] _output  = match.Value.ToCharArray()
+                                               .Where(character => character != '\'')
+                                               .ToArray();
+                string _path = string.Join("", _output);
+                var path = ReadTheFileContent(_path);
+                output+= path;
+            }
+            Console.WriteLine(output);
         }
-        Console.WriteLine(output);
+        Console.WriteLine(strKeyword);
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
