@@ -129,22 +129,22 @@ while (true)
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
-        if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
-        {
+        //if( strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
+        //{
            // echo 'test shell'=> test shell
 
             char[] charArr = strKeyword.ToCharArray();
             char[] nwArr = charArr.Where(character => character != '\'')
                                   .ToArray();
             Console.WriteLine(string.Join("", nwArr));
-        }
-        else
-        {
-            //$ echo test     shell =>  test shell
-            string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            string correctSpacedWords = string.Join(" ", keywordsArr);
-            Console.WriteLine(correctSpacedWords);
-        }
+        //}
+        //else
+        //{
+        //    //$ echo test     shell =>  test shell
+        //    string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+        //    string correctSpacedWords = string.Join(" ", keywordsArr);
+        //    Console.WriteLine(correctSpacedWords);
+        //}
         
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
@@ -201,49 +201,49 @@ while (true)
             Console.WriteLine($"cd: {location}: No such file or directory");
         }
     }
-    else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
-    {
-        string filPathstr = command.Substring(4);
-        string pattern = "'([^']+)'";
-        var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
+   // else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
+    //{
+    //    string filPathstr = command.Substring(4);
+    //    string pattern = "'([^']+)'";
+    //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
-        //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
-        //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
-        //string[] filePathsReg = Regex.Split(filPathstr, pattern);
-        if (validPaths.Length > 0)
-        {
-            string fileContent = "";
-            foreach (var filePathRegex in validPaths)
-            {
-                string _filePath = filePathRegex.Value;
-                char[] pathArr = _filePath.ToCharArray()
-                          .Where((chr, ind) => ind != 0  && ind != _filePath.Length - 1) //  remove / if present  in path as first element cuz dirPath has / at end  
-                         // .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
-                          .ToArray();
-                string filePath = string.Join("", pathArr);
-                Console.WriteLine($"{filePath}");
-                    var _fileContent = File.ReadAllText(filePath);
-                //fileContent += _fileContent;
-                // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-                // string noSpacePath = string.Join("", noSpacePathArr);
-                // //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
-                // string filePathX = getJointPathsWithPathDirectives(noSpacePath);
-                // Console.WriteLine("llast pathj "+ filePathX);
-                //// if (!string.IsNullOrWhiteSpace(filePath))
-                //// {
-                //     //var result = ReadTheFileContent(filePath);
-                //    // Console.WriteLine("***" + result + "xxxxxx");
-                //     fileContent  = fileContent + ReadTheFileContent(filePathX);
-                //// }
+    //    //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
+    //    //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+    //    //string[] filePathsReg = Regex.Split(filPathstr, pattern);
+    //    if (validPaths.Length > 0)
+    //    {
+    //        string fileContent = "";
+    //        foreach (var filePathRegex in validPaths)
+    //        {
+    //            string _filePath = filePathRegex.Value;
+    //            char[] pathArr = _filePath.ToCharArray()
+    //                      .Where((chr, ind) => ind != 0  && ind != _filePath.Length - 1) //  remove / if present  in path as first element cuz dirPath has / at end  
+    //                     // .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
+    //                      .ToArray();
+    //            string filePath = string.Join("", pathArr);
+    //            Console.WriteLine($"{filePath}");
+    //                var _fileContent = File.ReadAllText(filePath);
+    //            //fileContent += _fileContent;
+    //            // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+    //            // string noSpacePath = string.Join("", noSpacePathArr);
+    //            // //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
+    //            // string filePathX = getJointPathsWithPathDirectives(noSpacePath);
+    //            // Console.WriteLine("llast pathj "+ filePathX);
+    //            //// if (!string.IsNullOrWhiteSpace(filePath))
+    //            //// {
+    //            //     //var result = ReadTheFileContent(filePath);
+    //            //    // Console.WriteLine("***" + result + "xxxxxx");
+    //            //     fileContent  = fileContent + ReadTheFileContent(filePathX);
+    //            //// }
 
-            }
-            Console.WriteLine(fileContent);
-        }
-        else
-        {
-            Console.WriteLine(filPathstr);
-        }
-    }
+    //        }
+    //        Console.WriteLine(fileContent);
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine(filPathstr);
+    //    }
+    //}
     else
     {
         if (!String.IsNullOrEmpty(command))
