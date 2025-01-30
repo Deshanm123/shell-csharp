@@ -73,6 +73,7 @@ string GetExecutableByName(string progName)
 
 Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
 {
+    //single -Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
     return Regex.Matches(strPhrase, regPattern).ToArray();
 }
 bool RunTheExecutable(string progName, string progArgs)
@@ -135,28 +136,17 @@ while (true)
         string strKeyword = command.Substring(4).Trim();
         if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
-            var output = "";
-            Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
-            foreach(Match kw  in keywords)
-            {
-                  //removing single quotes 
-                  char[] formattedChr =kw.Value.ToCharArray().Where(ch => ch != '\'').ToArray();
-          //      var _out= string.Join("",strKeyword.ToCharArray().Where(chr => chr != '\''));
-                output+= string.Join("", formattedChr);
-            }
-            Console.WriteLine(output);
+            char[] output = strKeyword.ToCharArray()
+                                      .Where(character => character != '\'')
+                                      .ToArray();
+            Console.WriteLine(string.Join("",output));
         }
         else
         {
            // $ echo test     shell => test shell
             string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            string correctSpacedWords = string.Join(" ", keywordsArr);
-            Console.WriteLine(correctSpacedWords);
+            Console.WriteLine(string.Join(" ", keywordsArr));
         }
-        //    char[] output = strKeyword.ToCharArray();
-        //                               //.Where(character => character != '\'')
-        //                               //.ToArray();
-
 
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
