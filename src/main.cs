@@ -214,17 +214,17 @@ while (true)
             string fileContent = "";
             foreach (var filePathRegex in validPaths)
             {
-                string filePathx = filePathRegex.Value;
-                //char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-                //string noSpacePath = string.Join("",noSpace-PathArr);
+                string filePath = filePathRegex.Value;
+                char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
+                string noSpacePath = string.Join("", noSpacePathArr);
                 //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
-                string filePath = getJointPathsWithPathDirectives(filePathx);
+                string filePathX = getJointPathsWithPathDirectives(noSpacePath);
                 Console.WriteLine("llast pathj "+ filePath);
                // if (!string.IsNullOrWhiteSpace(filePath))
                // {
                     //var result = ReadTheFileContent(filePath);
                    // Console.WriteLine("***" + result + "xxxxxx");
-                    fileContent  = fileContent + ReadTheFileContent(filePath);
+                    fileContent  = fileContent + ReadTheFileContent(filePathX);
                // }
 
             }
