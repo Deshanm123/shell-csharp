@@ -139,8 +139,10 @@ while (true)
             Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
             foreach(Match kw  in keywords)
             {
+                  //removing single quotes 
+                  char[] formattedChr =kw.Value.ToCharArray().Where(ch => ch != '\'').ToArray();
           //      var _out= string.Join("",strKeyword.ToCharArray().Where(chr => chr != '\''));
-                output+= kw.Value;
+                output+= string.Join("", formattedChr);
             }
             Console.WriteLine(output);
         }
