@@ -101,15 +101,12 @@ string ReadTheFileContent(string filePath)
     string fileContent = "";
     try
     {
-        //if (File.Exists(filePath))
-        //{
+        if (File.Exists(filePath))
+        {
             fileContent = File.ReadAllText(filePath);
             return fileContent;
-        //}
-        //else
-        //{
-            Console.WriteLine("File doesn't exsist in the path \n" + filePath);
-        //}
+        }
+        Console.WriteLine("File doesn't exsist in the path \n" + filePath);
     }
     catch (Exception ex) 
     { 
@@ -207,7 +204,7 @@ while (true)
     {
         string strKeyword = command.Substring(4);
         Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
-        var output = " ";
+        var output = "";
         foreach (Match match in keywords)
         {
             char[] _output  = match.Value.ToCharArray()
