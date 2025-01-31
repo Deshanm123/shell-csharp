@@ -115,7 +115,7 @@ string ReadTheFileContent(string filePath)
 
 while (true)
 {
-    //Console.Write("$ ");
+    Console.Write("$ ");
 
     // Wait for user input
     var command = Console.ReadLine();
@@ -224,7 +224,7 @@ while (true)
         }
 
         // Ensure prompt is printed after execution
-        //command = " ";
+        strKeyword = " ";
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
