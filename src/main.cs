@@ -182,7 +182,7 @@ while (true)
 
         if (keywords != null && keywords.Count() > 0)
         {
-            string output = "";
+            //string output = "";
             foreach (Match match in keywords)
             {
                 char[] _output  = match.Value.ToCharArray()
@@ -190,9 +190,10 @@ while (true)
                                                .ToArray();
                 string _path = string.Join("", _output);
                 var path = ReadTheFileContent(_path);
-                output+= path; 
+                Console.Write(path);
+                //output+= path; 
             }
-            Console.WriteLine(output);
+            //Console.WriteLine(output);
         }
         else
         {
