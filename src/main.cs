@@ -127,6 +127,7 @@ while (true)
         //exit command implementation
         Environment.Exit(0);
     }
+    /*
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
@@ -172,6 +173,7 @@ while (true)
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
     }
+    */
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
@@ -262,6 +264,7 @@ while (true)
     }
     else
     {
+        /*
         if (!String.IsNullOrEmpty(command))
         {
             string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -282,6 +285,7 @@ while (true)
         {
             Console.WriteLine($"{command}: command not found");
         }
+        */
 
     }
 }
