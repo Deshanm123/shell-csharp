@@ -219,8 +219,9 @@ while (true)
             }
             Console.WriteLine(output);
         }
-        
-        Console.WriteLine(strKeyword);
+
+        // Ensure prompt is printed after execution
+        Console.Write("$ ");
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
@@ -283,7 +284,7 @@ while (true)
         {
             Console.WriteLine($"{command}: command not found");
         }
-        Console.Write("$ ");
+
     }
 }
 
