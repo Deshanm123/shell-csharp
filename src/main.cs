@@ -120,6 +120,8 @@ while (true)
     // Wait for user input
     var command = Console.ReadLine();
 
+    if (command == null) continue;  // Handle unexpected null input
+
     if (command == "exit 0")
     {
         //exit command implementation
@@ -217,7 +219,7 @@ while (true)
         }
 
         // Ensure prompt is printed after execution
-        command = " ";
+        //command = " ";
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
