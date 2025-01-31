@@ -34,9 +34,9 @@ string GetExecutableByName(string progName)
     foreach (var path in GetPathDirectives())
     {
         var tempfilepath = Path.Join(path, progName);
-        if (File.Exists(filepath))
+        if (File.Exists(tempfilepath))
         {
-            Console.WriteLine("path found" + filepath);
+           // Console.WriteLine("path found" + filepath);
            filepath = tempfilepath;
            break;
         }
