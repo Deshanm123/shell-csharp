@@ -219,6 +219,7 @@ while (true)
             }
             Console.WriteLine(output);
         }
+        
         Console.WriteLine(strKeyword);
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
@@ -282,7 +283,7 @@ while (true)
         {
             Console.WriteLine($"{command}: command not found");
         }
-
+        Console.Write("$ ");
     }
 }
 
