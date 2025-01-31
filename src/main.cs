@@ -222,10 +222,9 @@ while (true)
             }
             Console.WriteLine(output);
         }
-
         // Ensure prompt is printed after execution
-        Console.WriteLine("SSSS");
-        
+         strKeyword = command;
+
     }
     else
     {
