@@ -224,7 +224,7 @@ while (true)
         }
 
         // Ensure prompt is printed after execution
-        strKeyword = " ";
+        Console.WriteLine("SSSS");
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
