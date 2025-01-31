@@ -36,12 +36,11 @@ string GetExecutableByName(string progName)
         var tempfilepath = Path.Join(path, progName);
         if (File.Exists(filepath))
         {
-            Console.WriteLine("found");
+            Console.WriteLine("path found" + filepath);
            filepath = tempfilepath;
            break;
         }
     }
-    Console.WriteLine("path found" + filepath);
     return filepath;
 }
 
