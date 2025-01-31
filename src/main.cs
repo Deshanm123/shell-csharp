@@ -115,7 +115,7 @@ string ReadTheFileContent(string filePath)
 
 while (true)
 {
-    Console.Write("$ ");
+    //Console.Write("$ ");
 
     // Wait for user input
     var command = Console.ReadLine();
