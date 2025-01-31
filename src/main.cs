@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 
 
-
 //shell built-in arr
 string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd","cat"];
 
@@ -29,9 +28,6 @@ bool isShellKeyword(string commandkeyword)
     return Array.Exists(shellKeyWordsArr, keyword => keyword == commandkeyword);
 }
 
-
-//Program can be found some where in directives.
-//Therefore program name is passed to get the file location
 string GetExecutableByName(string progName)
 {
     string filepath = "";
@@ -46,30 +42,6 @@ string GetExecutableByName(string progName)
     }
     return filepath;
 }
-
-
-//string getJointPathsWithPathDirectives(string path)
-//{
-//   string filePath = "";
-//   char[] pathArr = path.ToCharArray() 
-//                          .Where((chr,ind) =>   ind != 0 && chr != '/') //  remove / if present  in path as first element cuz dirPath has / at end  
-//                          .Where((chr, ind) => ind != path.Length-1 && chr != '\'')  //   remove single quote at the end of the path
-//                          .ToArray();
-//   string validPath = string.Join("", pathArr);
-//   foreach (var dirPath in GetPathDirectives())
-//    {
-//        var tempPath = Path.Join(dirPath, validPath);
-//        Console.WriteLine(tempPath);    
-//        if (Path.Exists(tempPath))
-//        {
-//            filePath = tempPath;
-//            return filePath;
-//        }
-//    }
-//    return filePath;
-//}
-
-
 
 Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
 {
@@ -146,7 +118,6 @@ while (true)
         }
 
     }
-    /*
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
         //indentifying reserved shell keyword by Type
@@ -174,8 +145,7 @@ while (true)
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
     }
-    */
-    /*
+    
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
@@ -184,7 +154,6 @@ while (true)
             string homeEnvVariable = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             location = location.Replace("~", homeEnvVariable);
         }
-
         //absolute path handling
         if (!String.IsNullOrEmpty(location) && Path.Exists(location))
         {
@@ -202,7 +171,7 @@ while (true)
             Console.WriteLine($"cd: {location}: No such file or directory");
         }
     }
-    */
+    
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string strKeyword = command.Substring(3);
@@ -225,12 +194,11 @@ while (true)
             Console.WriteLine(output);
         }
         // Ensure prompt is printed after execution
-         
 
     }
     else
     {
-        /*
+        
         if (!String.IsNullOrEmpty(command))
         {
             string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -251,7 +219,6 @@ while (true)
         {
             Console.WriteLine($"{command}: command not found");
         }
-        */
 
     }
 }
