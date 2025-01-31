@@ -115,7 +115,7 @@ string ReadTheFileContent(string filePath)
     return fileContent;
 }
 
-
+/*
 while (true)
 {
     Console.Write("$ ");
@@ -221,7 +221,7 @@ while (true)
         }
 
         // Ensure prompt is printed after execution
-        Console.Write("$ ");
+        //Console.Write("$ ");
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
@@ -288,3 +288,78 @@ while (true)
     }
 }
 
+
+
+
+*/
+while (true)
+{
+    Console.Write("$ ");  // Print prompt once at the start of each iteration.
+
+    // Wait for user input
+    var command = Console.ReadLine();
+
+    if (command == "exit 0")
+    {
+        Environment.Exit(0);
+    }
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
+    {
+        string strKeyword = command.Substring(4).Trim();
+        if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
+        {
+            char[] output = strKeyword.ToCharArray()
+                                      .Where(character => character != '\'')
+                                      .ToArray();
+            Console.WriteLine(string.Join("", output));
+        }
+        else
+        {
+            string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            Console.WriteLine(string.Join(" ", keywordsArr));
+        }
+    }
+    else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
+    {
+        string strKeyword = command.Substring(3);
+        Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+
+        if (keywords != null && keywords.Count() > 0)
+        {
+            var output = "";
+            foreach (Match match in keywords)
+            {
+                char[] _output = match.Value.ToCharArray()
+                                           .Where(character => character != '\'')
+                                           .ToArray();
+                string _path = string.Join("", _output);
+                var pathContent = ReadTheFileContent(_path);
+                output += pathContent;
+            }
+            Console.WriteLine(output);
+        }
+        else
+        {
+            Console.WriteLine(strKeyword);
+        }
+    }
+    else
+    {
+        // Handle other commands or errors
+        if (!String.IsNullOrEmpty(command))
+        {
+            string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string progName = commandContentArr[0].Trim();
+            if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
+            {
+                string progArgs = string.Join(" ", commandContentArr.Skip(1));
+                if (!RunTheExecutable(progName, progArgs))
+                    Console.WriteLine($"{command}: command not found");
+            }
+            else
+            {
+                Console.WriteLine($"{command}: command not found");
+            }
+        }
+    }
+}
