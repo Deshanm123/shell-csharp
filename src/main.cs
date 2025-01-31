@@ -10,7 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 
 //shell built-in arr
-string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd","cat"];
+string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd"];
 
 //Get user path environments according to OS
 string[] GetPathDirectives()
