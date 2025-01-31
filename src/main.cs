@@ -208,7 +208,9 @@ while (true)
         string strKeyword = command.Substring(3);
         Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
 
-        if(keywords != null && keywords.Count() > 0)
+        ArgumentNullException.ThrowIfNull(strKeyword);
+
+        if (keywords != null && keywords.Count() > 0)
         {
             string output = "";
             foreach (Match match in keywords)
@@ -223,7 +225,7 @@ while (true)
             Console.WriteLine(output);
         }
         // Ensure prompt is printed after execution
-         strKeyword = command;
+        // strKeyword = command;
 
     }
     else
