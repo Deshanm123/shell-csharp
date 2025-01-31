@@ -217,7 +217,7 @@ while (true)
         }
 
         // Ensure prompt is printed after execution
-        Console.Write(" ");
+        command = " ";
         //    string pattern = "'([^']+)'";
         //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
 
