@@ -225,45 +225,7 @@ while (true)
 
         // Ensure prompt is printed after execution
         Console.WriteLine("SSSS");
-        //    string pattern = "'([^']+)'";
-        //    var validPaths = Regex.Matches(filPathstr, pattern).ToArray();
-
-        //    //string[] filePaths = filPathstr.Split("\'",StringSplitOptions.RemoveEmptyEntries);
-        //    //string[] filePaths = filPathstr.Split(' ',StringSplitOptions.RemoveEmptyEntries);
-        //    //string[] filePathsReg = Regex.Split(filPathstr, pattern);
-        //    if (validPaths.Length > 0)
-        //    {
-        //        string fileContent = "";
-        //        foreach (var filePathRegex in validPaths)
-        //        {
-        //            string _filePath = filePathRegex.Value;
-        //            char[] pathArr = _filePath.ToCharArray()
-        //                      .Where((chr, ind) => ind != 0  && ind != _filePath.Length - 1) //  remove / if present  in path as first element cuz dirPath has / at end  
-        //                     // .Where((chr, ind) => ind != _filePath.Length - 1 && chr != '\'')  //   remove single quote at the end of the path
-        //                      .ToArray();
-        //            string filePath = string.Join("", pathArr);
-        //            Console.WriteLine($"{filePath}");
-        //                var _fileContent = File.ReadAllText(filePath);
-        //            //fileContent += _fileContent;
-        //            // char[] noSpacePathArr = filePath.ToCharArray().Where(character => character != ' ').ToArray();
-        //            // string noSpacePath = string.Join("", noSpacePathArr);
-        //            // //string filePath = Path.GetFullPath(GetExecutableByName(filePathx));
-        //            // string filePathX = getJointPathsWithPathDirectives(noSpacePath);
-        //            // Console.WriteLine("llast pathj "+ filePathX);
-        //            //// if (!string.IsNullOrWhiteSpace(filePath))
-        //            //// {
-        //            //     //var result = ReadTheFileContent(filePath);
-        //            //    // Console.WriteLine("***" + result + "xxxxxx");
-        //            //     fileContent  = fileContent + ReadTheFileContent(filePathX);
-        //            //// }
-
-        //        }
-        //        Console.WriteLine(fileContent);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine(filPathstr);
-        //    }
+        
     }
     else
     {
