@@ -127,7 +127,7 @@ while (true)
         //exit command implementation
         Environment.Exit(0);
     }
-    /*
+    
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
@@ -146,6 +146,7 @@ while (true)
         }
 
     }
+    /*
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
         //indentifying reserved shell keyword by Type
@@ -174,6 +175,7 @@ while (true)
         Console.WriteLine(Directory.GetCurrentDirectory());
     }
     */
+    /*
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
@@ -200,6 +202,7 @@ while (true)
             Console.WriteLine($"cd: {location}: No such file or directory");
         }
     }
+    */
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
         string strKeyword = command.Substring(3);
