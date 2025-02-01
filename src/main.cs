@@ -225,7 +225,6 @@ while (true)
         }
         else
         {
-
             Console.WriteLine(strKeyword);
         }
 
