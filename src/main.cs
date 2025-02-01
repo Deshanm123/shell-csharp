@@ -135,7 +135,20 @@ while (true)
         {
             // $ echo test     shell => test shell
             string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            Console.WriteLine(string.Join(" ", keywordsArr));
+            string output = string.Join(" ", keywordsArr);
+            //remove
+            if (output.Contains('\\'))
+            {
+                var _ = RemoveCharFromString(output, '\\');
+                Console.WriteLine(string.Join("",_));
+            }
+            else
+            {
+                Console.WriteLine(output);
+
+            }
+            
+            
         }
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
@@ -205,7 +218,7 @@ while (true)
             keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
         }
         else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
-        { //double 
+        { 
             keywords = GetPatternMatchesByRegex(strKeyword, "\"([^\"]+)\"");
             isDoubleQuotes = true;
         }
