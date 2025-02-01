@@ -1,16 +1,9 @@
-
-using System.ComponentModel.Design;
-using System.Data.Common;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
 
 
 //shell built-in arr
-string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd","cd"];
+string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd", "cd"];
 
 //Get user path environments according to OS
 string[] GetPathDirectives()
@@ -20,7 +13,7 @@ string[] GetPathDirectives()
     // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
     string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
     return pathDirs;
-} 
+}
 
 //shell reserved words check 
 bool isShellKeyword(string commandkeyword)
@@ -36,9 +29,9 @@ string GetExecutableByName(string progName)
         var tempfilepath = Path.Join(path, progName);
         if (File.Exists(tempfilepath))
         {
-           // Console.WriteLine("path found" + filepath);
-           filepath = tempfilepath;
-           break;
+            // Console.WriteLine("path found" + filepath);
+            filepath = tempfilepath;
+            break;
         }
     }
     return filepath;
@@ -78,18 +71,18 @@ string ReadTheFileContent(string filePath)
         }
         Console.WriteLine("File doesn't exsist in the path \n" + filePath);
     }
-    catch (Exception ex) 
-    { 
+    catch (Exception ex)
+    {
         // Console.WriteLine(ex.Message); }
-    } 
+    }
     return fileContent;
 }
 
 
-char[] RemoveCharFromString (string keyword,char character )
+char[] RemoveCharFromString(string keyword, char character)
 {
     return keyword.ToCharArray()
-                   .Where(chr => chr != character )
+                   .Where(chr => chr != character)
                    .ToArray();
 }
 
@@ -107,44 +100,40 @@ while (true)
         //exit command implementation
         Environment.Exit(0);
     }
-    
+
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("echo "))
     {
         string strKeyword = command.Substring(4).Trim();
         if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
             char[] output = RemoveCharFromString(strKeyword, '\'');
-            Console.WriteLine(string.Join("",output));
+            Console.WriteLine(string.Join("", output));
         }
-        else if( strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
+        else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
         {
             //"shel""example"=> making them concat
-            string _strKeyword = Regex.Replace(strKeyword,"\"\"","" );
-           // string _strKeyword = strKeyword.Replace("\"\"", "");
-            //string _strKeyword = strKeyword.T
+            string _strKeyword = Regex.Replace(strKeyword, "\"\"", "");
             Match[] keywords = GetPatternMatchesByRegex(_strKeyword, "\"([^\"]+)\"");
             if (keywords != null && keywords.Count() > 0)
             {
-               List<string> strWordsList = new List<string>() { };
-               foreach (Match match in keywords)
-               {
+                List<string> strWordsList = new List<string>() { };
+                foreach (Match match in keywords)
+                {
                     char[] outputChrArr = RemoveCharFromString(match.Value, '\"');
                     strWordsList.Add(string.Join("", outputChrArr));
 
-               }
-                Console.WriteLine(string.Join(" ",strWordsList));
+                }
+                Console.WriteLine(string.Join(" ", strWordsList));
             }
             else
             {
                 Console.WriteLine(_strKeyword);
             }
 
-            //"not a"" single space" => "not asingle space"
-            // "check thi
         }
         else
         {
-           // $ echo test     shell => test shell
+            // $ echo test     shell => test shell
             string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             Console.WriteLine(string.Join(" ", keywordsArr));
         }
@@ -176,7 +165,7 @@ while (true)
     {
         Console.WriteLine(Directory.GetCurrentDirectory());
     }
-    
+
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cd "))
     {
         var location = command.Substring(2).Trim();
@@ -202,35 +191,48 @@ while (true)
             Console.WriteLine($"cd: {location}: No such file or directory");
         }
     }
-    
+
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("cat "))
     {
-        string strKeyword = command.Substring(3);
-        Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+        string strKeyword = command.Substring(3).Trim();
+        Match[] keywords = new Match[] { };
+        bool isDoubleQuotes = false;
 
         ArgumentNullException.ThrowIfNull(strKeyword);
+
+        if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
+        {
+            keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+        }
+        else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
+        { //double 
+            keywords = GetPatternMatchesByRegex(strKeyword, "\"([^\"]+)\"");
+            isDoubleQuotes = true;
+        }
 
         if (keywords != null && keywords.Count() > 0)
         {
             foreach (Match match in keywords)
             {
-                char[] _output  = match.Value.ToCharArray()
-                                               .Where(character => character != '\'')
-                                               .ToArray();
+                char quoteChr = isDoubleQuotes ? '\"' : '\'';
+                char[] _output = match.Value.ToCharArray()
+                                             .Where(chr => chr != quoteChr)
+                                             .ToArray();
                 string _path = string.Join("", _output);
-                var path = ReadTheFileContent(_path);
-                Console.Write(path);
+                var content = ReadTheFileContent(_path);
+                Console.Write(content);
             }
         }
         else
         {
+
             Console.WriteLine(strKeyword);
         }
 
     }
     else
     {
-        
+
         if (!String.IsNullOrEmpty(command))
         {
             string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -239,7 +241,7 @@ while (true)
             {
                 string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
                 //Executing the executable
-                if(!RunTheExecutable(progName,progArgs))
+                if (!RunTheExecutable(progName, progArgs))
                     Console.WriteLine($"{command}: command not found");
             }
             else
