@@ -86,6 +86,13 @@ string ReadTheFileContent(string filePath)
 }
 
 
+char[] RemoveCharFromString (string keyword,char character )
+{
+    return keyword.ToCharArray()
+                   .Where(chr => chr != character )
+                   .ToArray();
+}
+
 while (true)
 {
     Console.Write("$ ");
@@ -106,10 +113,34 @@ while (true)
         string strKeyword = command.Substring(4).Trim();
         if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
-            char[] output = strKeyword.ToCharArray()
-                                      .Where(character => character != '\'')
-                                      .ToArray();
+            char[] output = RemoveCharFromString(strKeyword, '\'');
             Console.WriteLine(string.Join("",output));
+        }
+        else if( strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
+        {
+            //"shel""example"=> making them concat
+            string _strKeyword = Regex.Replace(strKeyword,"\"\"","" );
+           // string _strKeyword = strKeyword.Replace("\"\"", "");
+            //string _strKeyword = strKeyword.T
+            Match[] keywords = GetPatternMatchesByRegex(_strKeyword, "\"([^\"]+)\"");
+            if (keywords != null && keywords.Count() > 0)
+            {
+               List<string> strWordsList = new List<string>() { };
+               foreach (Match match in keywords)
+               {
+                    char[] outputChrArr = RemoveCharFromString(match.Value, '\"');
+                    strWordsList.Add(string.Join("", outputChrArr));
+
+               }
+                Console.WriteLine(string.Join(" ",strWordsList));
+            }
+            else
+            {
+                Console.WriteLine(_strKeyword);
+            }
+
+            //"not a"" single space" => "not asingle space"
+            // "check thi
         }
         else
         {
@@ -117,7 +148,6 @@ while (true)
             string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             Console.WriteLine(string.Join(" ", keywordsArr));
         }
-
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
     {
@@ -182,7 +212,6 @@ while (true)
 
         if (keywords != null && keywords.Count() > 0)
         {
-            //string output = "";
             foreach (Match match in keywords)
             {
                 char[] _output  = match.Value.ToCharArray()
@@ -191,16 +220,12 @@ while (true)
                 string _path = string.Join("", _output);
                 var path = ReadTheFileContent(_path);
                 Console.Write(path);
-                //output+= path; 
             }
-            //Console.WriteLine(output);
         }
         else
         {
             Console.WriteLine(strKeyword);
         }
-        // Ensure prompt is printed after execution
-
 
     }
     else
