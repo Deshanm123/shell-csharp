@@ -1,4 +1,9 @@
+using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Dynamic;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
 using System.Text.RegularExpressions;
 
 
@@ -42,7 +47,8 @@ Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
     //single -Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
     return Regex.Matches(strPhrase, regPattern).ToArray();
 }
-bool RunTheExecutable(string progName, string progArgs)
+
+async Task<bool> RunTheExecutable(string progName, string progArgs)
 {
     //Executing the executable
     try
@@ -86,10 +92,14 @@ char[] RemoveCharFromString(string keyword, char character)
                    .ToArray();
 }
 
+//int getQuoteIndex(char chr, int ind)
+//{
+//    if (chr == '"') return ind;
+//    else return;
+//}
 while (true)
 {
     Console.Write("$ ");
-
     // Wait for user input
     var command = Console.ReadLine();
 
@@ -111,17 +121,154 @@ while (true)
         }
         else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
         {
-            //"shel""example"=> making them concat
-            string _strKeyword = Regex.Replace(strKeyword, "\"\"", "");
+            //string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            char[] strCharArr = strKeyword.ToCharArray();
+            List<char> outputList = new List<char>() { };
+            string quoatation = "Closed";
+            bool spaceAdded = false;
+            for (int i = 0; i < strCharArr.Length; i++)
+            {
+                char? c = strCharArr[i];
+                if (c == '\"')
+                {
+                    if (quoatation == "Closed")
+                    {
+                        quoatation = "Open";
+                        spaceAdded = false;
+                    }
+                    else
+                    {
+                        quoatation = "Closed";
+                    }
+                }
+                   
+
+                //if(c == '')
+                //{
+                //    quoatation = "None";
+                //}
+                switch (quoatation)
+                {
+
+                    case "Open":
+                                switch ( c) 
+                            {
+                                case '\"':
+                                {
+                                    // = quoatation == "None" ?  "Double" :  "None";
+                                    break;
+                                }
+                                case '\\':
+                                    {
+                                        Console.Write('\\');
+                                        break;
+                                    }
+                                case '\'':
+                                    {
+                                        Console.Write('\\');
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Console.Write(c);
+                                        break;
+                                    }
+                            }
+                        break;
+
+                    case "Closed":
+                        switch(c)
+                        {
+                            //'"'
+                            case ' ':
+                            {
+                               if (!spaceAdded)
+                               {
+                                        Console.Write(' ');
+                                        spaceAdded = true;
+                               }
+                            }
+                                 break;
+                        }
+                        break;
+                }
+
+                
+            }
+
+            
+            Console.Write('\n');
+            //Console.WriteLine(string.Join("", outputList));
+
+
+            /*
+            //removing end trail " quote after removing echo and start trails
+           // string _strKeyword = strKeyword.Substring(1,strKeyword.Length -2);
+            string _strKeyword = strKeyword;
+
+            bool foundDbleStartQuote = false;
+            bool foundDbleEndQuote = false;
+            int dbleQuoteStart = Int32.MinValue;
+            int dbleQuoteEnd = Int32.MaxValue;
+
+            List<string> strWordsList = new List<string>() { };
+            //if escape characters present
+            for (int i = 0; i < _strKeyword.Length; i++ )
+            {
+                Console.WriteLine(_strKeyword.Length);
+               if (_strKeyword[i] == '"' && !foundDbleStartQuote)
+               {
+                    dbleQuoteStart = i;
+                    foundDbleStartQuote = true;
+               }
+               else if (_strKeyword[i] == '"' && foundDbleStartQuote)
+               {
+                    dbleQuoteEnd = i;
+                    foundDbleEndQuote = true;
+               }
+
+                if(foundDbleStartQuote  && foundDbleEndQuote)
+                {
+                    //copy
+                    if (dbleQuoteStart + 1 < _strKeyword.Length)
+                    {
+                        int firstCharIndex = dbleQuoteStart + 1;
+                        int  noOfChars = dbleQuoteEnd - dbleQuoteStart;
+
+                        var word = _strKeyword.Substring(firstCharIndex, noOfChars);
+                        strWordsList.Add(word);
+                    }
+                    foundDbleStartQuote = false;
+                    foundDbleEndQuote = false;
+                    dbleQuoteStart = Int32.MinValue;
+                    dbleQuoteEnd = Int32.MaxValue;
+                }
+            }
+            */
+
+            /*
+           // "shel""example"=> making them concat
+            string _strKeyword = Regex.Replace(strKeyword, "\"\"", "").Trim();
+            //not escape characters presenet
             Match[] keywords = GetPatternMatchesByRegex(_strKeyword, "\"([^\"]+)\"");
+
             if (keywords != null && keywords.Count() > 0)
             {
                 List<string> strWordsList = new List<string>() { };
                 foreach (Match match in keywords)
                 {
                     char[] outputChrArr = RemoveCharFromString(match.Value, '\"');
-                    strWordsList.Add(string.Join("", outputChrArr));
-
+                    var output = string.Join("", outputChrArr);
+                    //check if escape character exists
+                    if (output.Contains(@"\\"))
+                    {
+                        int index = output.IndexOf('\\');
+                        strWordsList.Add(output.Remove(index, 1));
+                    }
+                    else
+                    {
+                        strWordsList.Add(output);
+                    }
                 }
                 Console.WriteLine(string.Join(" ", strWordsList));
             }
@@ -129,14 +276,14 @@ while (true)
             {
                 Console.WriteLine(_strKeyword);
             }
-
+            */
         }
         else
         {
             // $ echo test     shell => test shell
             string[] keywordsArr = strKeyword.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             string output = string.Join(" ", keywordsArr);
-            //remove
+            //remove backslash character from a output when displaying /escape characcter
             if (output.Contains('\\'))
             {
                 var _ = RemoveCharFromString(output, '\\');
@@ -145,10 +292,7 @@ while (true)
             else
             {
                 Console.WriteLine(output);
-
             }
-            
-            
         }
     }
     else if (!String.IsNullOrEmpty(command) && command.StartsWith("type "))
@@ -253,7 +397,7 @@ while (true)
             {
                 string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
                 //Executing the executable
-                if (!RunTheExecutable(progName, progArgs))
+                if (!await RunTheExecutable(progName, progArgs))
                     Console.WriteLine($"{command}: command not found");
             }
             else
