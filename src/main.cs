@@ -316,11 +316,21 @@ while (true)
     }
     else
     {
-
-        if (!String.IsNullOrEmpty(command))
+        if (Regex.IsMatch(command, ".+exe.*with.*"))
         {
+            int leftSlashIndex = Array.IndexOf(command.ToCharArray(), '/');
+            string progPath = command.Substring(leftSlashIndex);
+            //var xx = command.ToCharArray().First((chr, ind) => { if (chr == '/') return ind; });
+           // string progPath = command.Replace("'exe  with  space'", "").Trim();
+            var content = ReadTheFileContent(progPath);
+            Console.Write(content);
+        }
+        else if (!String.IsNullOrEmpty(command))
+        {
+            
             string[] commandContentArr = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string progName = commandContentArr[0].Trim();
+
             if (!String.IsNullOrEmpty(GetExecutableByName(progName)))
             {
                 string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
