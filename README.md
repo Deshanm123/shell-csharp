@@ -1,34 +1,28 @@
-[![progress-banner](https://backend.codecrafters.io/progress/shell/f31d0924-7e62-4061-9517-370b2dbc890b)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a starting point for C# solutions to the
 ["Build Your Own Shell" Challenge](https://app.codecrafters.io/courses/shell/overview).
 
-In this challenge, you'll build your own POSIX compliant shell that's capable of
-interpreting shell commands, running external programs and builtin commands like
-cd, pwd, echo and more. Along the way, you'll learn about shell command parsing,
-REPLs, builtin commands, and more.
+# POSIX-Compliant Shell
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+## Overview
+This project is a custom-built POSIX-compliant shell that serves as a command-line interface for executing commands and managing processes. The shell supports running external programs, handling built-in commands such as `cd`, `pwd`, `echo`, and more. By developing this shell, you will gain insights into shell command parsing, REPL (Read-Eval-Print Loop), process management, and command execution.
 
-# Passing the first stage
+## Features
+The development of the shell follows a structured approach, implementing features in stages:
 
-The entry point for your `shell` implementation is in `src/main.cs`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
+### **Basic Shell Functionality**
+- **Print a prompt** (Very Easy) - Display a prompt in the terminal for user input.
+- **Handle invalid commands** (Easy) - Gracefully handle and display error messages for unrecognized commands.
+- **REPL** (Medium) - Implement a continuous Read-Eval-Print Loop to process user input iteratively.
+- **The `exit` builtin** (Easy) - Allow the user to exit the shell cleanly.
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
+### **Built-in Commands**
+- **The `echo` builtin** (Medium) - Implement the `echo` command to print arguments to the console.
+- **The `type` builtin: builtins** (Medium) - Identify and display information about built-in commands.
+- **The `type` builtin: executable files** (Medium) - Determine whether a command is an executable file in the system's `$PATH`.
+- **Run a program** (Medium) - Execute external programs and system commands.
 
-Time to move on to the next stage!
-
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `dotnet (9.0)` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `src/main.cs`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+### **Navigation Commands**
+- **The `pwd` builtin** (Easy) - Display the current working directory.
+- **The `cd` builtin: Absolute paths** (Medium) - Change directories using absolute paths.
+- **The `cd` builtin: Relative paths** (Ha
