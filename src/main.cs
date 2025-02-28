@@ -2,6 +2,7 @@ using codecrafters_shell.src;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
@@ -10,17 +11,6 @@ using System.Text.RegularExpressions;
 
 //shell built-in arr
 string[] shellKeyWordsArr = ["echo", "type", "exit", "pwd", "cd"];
-
-
-//Get user path environments according to OS
-//string[] GetPathDirectives()
-//{
-//    // Retrieve the PATH environment variable, or use an empty string if null.
-//    string pathEnv = Environment.GetEnvironmentVariable("PATH") ?? "";
-//    // Split the PATH string into individual directories based on the platform's PATH separator ignoring any empty entries.
-//    string[] pathDirs = pathEnv.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
-//    return pathDirs;
-//}
 
 //shell reserved words check 
 bool isShellKeyword(string commandkeyword)
@@ -46,58 +36,14 @@ string GetExecutableByName(string progName)
     return filepath;
 }
 
-Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
-{
-    //single -Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
-    return Regex.Matches(strPhrase, regPattern).ToArray();
-}
-
-async Task<bool> RunTheExecutable(string progName, string progArgs)
-{
-    //Executing the executable
-    try
-    {
-        using var process = new Process();
-        process.StartInfo.FileName = progName;//GetExecutableByName(progName);
-        process.StartInfo.Arguments = progArgs;
-        process.Start();
-        return true;
-    }
-    catch (Exception ex)
-    {
-    }
-    return false;
-}
-
- async Task<string>  ReadTheFileContent(string filePath)
-{
-    string fileContent = "";
-    try
-    {
-        if (File.Exists(filePath))
-        {
-            string temp = await File.ReadAllTextAsync(filePath);
-            fileContent += temp;
-        }
-        else
-        {
-            Console.WriteLine("File doesn't exsist in the path \n" + filePath);
-        }
-    }
-    catch (Exception ex)
-    {
-        // Console.WriteLine(ex.Message); }
-    }
-    return fileContent;
-}
+//Match[] GetPatternMatchesByRegex(string strPhrase, string regPattern)
+//{
+//    //single -Match[] keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+//    return Regex.Matches(strPhrase, regPattern).ToArray();
+//}
 
 
-char[] RemoveCharFromString(string keyword, char character)
-{
-    return keyword.ToCharArray()
-                   .Where(chr => chr != character)
-                   .ToArray();
-}
+
 
 
 while (true)
@@ -117,10 +63,10 @@ while (true)
     }
     else if (command.StartsWith("echo "))
     {
-        string strKeyword = Utils.extractInput(command, "echo ");
+        string strKeyword = StrHandler.extractInput(command, "echo ");
         if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
-            char[] output = RemoveCharFromString(strKeyword, '\'');
+            char[] output = StrHandler.RemoveCharFromString(strKeyword, '\'');
             Console.WriteLine(string.Join("", output));
         }
         else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
@@ -226,9 +172,10 @@ while (true)
             //remove backslash character from a output when displaying /escape characcter
             if (output.Contains('\\'))
             {
-                var _ = RemoveCharFromString(output, '\\');
+                var _ = StrHandler.RemoveCharFromString(output, '\\');
                 Console.WriteLine(string.Join("", _));
             }
+          
             else
             {
                 Console.WriteLine(output);
@@ -238,7 +185,7 @@ while (true)
     else if (command.StartsWith("type "))
     {
         //indentifying reserved shell keyword by Type
-        string strKeyword = Utils.extractInput(command, "type ");
+        string strKeyword = StrHandler.extractInput(command, "type ");
         if (isShellKeyword(strKeyword))
             Console.WriteLine($"{strKeyword} is a shell builtin");
         else
@@ -265,7 +212,7 @@ while (true)
 
     else if (command.StartsWith("cd "))
     {
-        string location = Utils.extractInput(command, "cd ");
+        string location = StrHandler.extractInput(command, "cd ");
         if (location.Contains('~'))
         {
             string homeEnvVariable = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -298,21 +245,21 @@ while (true)
         cat is used to view file contents, combine files, and create new files
          */
 
-        string strKeyword = Utils.extractInput(command, "cat ");
+        string strKeyword = StrHandler.extractInput(command, "cat ");
         Match[] keywords = new Match[] { };
         bool isDoubleQuotes = false;
-
+        FileIOHandler fileIOhandle = new FileIOHandler();
         ArgumentNullException.ThrowIfNull(strKeyword);
 
         //Console.WriteLine("Seperator" +Path.DirectorySeparatorChar);
 
         if (strKeyword.StartsWith("\'") && strKeyword.EndsWith("\'"))
         {
-            keywords = GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
+            keywords = StrHandler.GetPatternMatchesByRegex(strKeyword, "'([^']+)'");
         }
         else if (strKeyword.StartsWith("\"") && strKeyword.EndsWith("\""))
         {
-            keywords = GetPatternMatchesByRegex(strKeyword, "\"([^\"]+)\"");
+            keywords = StrHandler.GetPatternMatchesByRegex(strKeyword, "\"([^\"]+)\"");
             isDoubleQuotes = true;
         }
 
@@ -325,7 +272,8 @@ while (true)
                                              .Where(chr => chr != quoteChr)
                                              .ToArray();
                 string _path = string.Join("", _output);
-                var content = await ReadTheFileContent(_path);
+
+                var content = await fileIOhandle.ReadTheFileContent(_path);
                 Console.Write(content);
             }
         }
@@ -333,7 +281,7 @@ while (true)
         {
             if (!Directory.Exists(strKeyword))
             {
-                var content = await ReadTheFileContent(strKeyword);
+                string content = await fileIOhandle.ReadTheFileContent(strKeyword);
                 Console.Write(content);
             }
             else
@@ -346,9 +294,9 @@ while (true)
     else if (command.StartsWith("ls "))
     {
 
-        string strKeyword = Utils.extractInput(command, "ls ");
+        string strKeyword = StrHandler.extractInput(command, "ls ");
         
-        var filePaths = GetPatternMatchesByRegex(strKeyword, "(/[^>]+)"); //Matches paths that start with "/"
+        var filePaths = StrHandler.GetPatternMatchesByRegex(strKeyword, "(/[^>]+)"); //Matches paths that start with "/"
 
         string StartDirectory = filePaths[0].Value.Trim();
         string endDirectoryPath = filePaths[1].Value.Trim();
@@ -362,7 +310,9 @@ while (true)
                 content += readText;
             }
         }
-        await File.WriteAllTextAsync(endDirectoryPath, content);
+        FileIOHandler fileIOHandle = new FileIOHandler();
+        fileIOHandle.WriteContentToFile(strKeyword, content).GetAwaiter();
+      //  await File.WriteAllTextAsync(endDirectoryPath, content);
 
     }
     else
@@ -372,8 +322,8 @@ while (true)
         {
             int leftSlashIndex = Array.IndexOf(command.ToCharArray(), '/');
             string progPath = command.Substring(leftSlashIndex);
-
-            var content = await ReadTheFileContent(progPath);
+            FileIOHandler fileIOhandle = new FileIOHandler();
+            var content = await fileIOhandle.ReadTheFileContent(progPath);
             Console.Write(content);
         }
         else 
@@ -385,8 +335,8 @@ while (true)
             {
                 string progArgs = string.Join(" ", commandContentArr.Where((arg, index) => index != 0));
                 //Executing the executable
-                var res = await RunTheExecutable(progName, progArgs);
-                if (!res)
+               // var res =  RunTheExecutable(progName, progArgs).GetAwaiter().GetResult();
+                if (!await ExecutableRunner.Run(progName, progArgs))
                     Console.WriteLine($"{command}: command not found");
             }
             else

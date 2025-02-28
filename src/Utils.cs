@@ -17,10 +17,7 @@ namespace codecrafters_shell.src
             cd
         };
 
-        public static string extractInput(string command, string sliceWord)
-        {
-            return command.Substring(sliceWord.Length).Trim();
-        }
+        
 
         public static string[] GetPathDirectives()
         {
